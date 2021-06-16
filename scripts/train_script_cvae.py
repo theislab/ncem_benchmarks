@@ -36,6 +36,8 @@ cond_l2_req_key = sys.argv[21]
 
 n_eval_nodes_keys = sys.argv[27]
 use_type_cond = bool(int(sys.argv[14]))
+pretrain_decoder = bool(int(sys.argv[15]))
+aggressive = bool(int(sys.argv[16]))
 
 # other
 batch_size_key = sys.argv[22]
@@ -52,6 +54,7 @@ if data_set == 'zhang':
     use_domain = True
     merge_node_types_predefined = True
     covar_selection = []
+    target_cell_types = ["L23_IT"]
     radius_dict = {
         "0": 0,
         "1": 10,
@@ -79,15 +82,19 @@ if data_set == 'zhang':
     log_transform = False
     scale_node_size = False
     output_layer = "gaussian_const_disp"
-    # ToDo check
     pre_warm_up = 0
     max_beta = 1.
-    beta = 0.02
+    beta = 1.
+    if not aggressive and not pretrain_decoder:
+        pre_warm_up = 0
+        max_beta = 1.
+        beta = 0.02
 elif data_set == 'jarosch':
     data_path = data_path_base + '/jarosch/'
     use_domain = True
     merge_node_types_predefined = True
     covar_selection = []
+    target_cell_types = ["muscular cells", "Lamina propria cells"]
     radius_dict = {
         "0": 0,
         "1": 10,
@@ -114,43 +121,13 @@ elif data_set == 'jarosch':
     log_transform = True
     scale_node_size = False
     output_layer = "gaussian"
-    # ToDo check
     pre_warm_up = 0
     max_beta = 1.
     beta = 1.
-elif data_set == 'hartmann':
-    data_path = data_path_base + '/hartmann/'
-    use_domain = True
-    merge_node_types_predefined = True
-    covar_selection = []
-    radius_dict = {
-        "0": 0,
-        "1": 35,
-        "2": 50,
-        "3": 120,
-        "4": 400,
-        "5": 1600,
-    }
-    intermediate_dim_dict = {
-        "1": 4,
-        "2": 8,
-        "3": 16,
-        "4": 32,
-        "5": 64,
-        "6": 128
-    }
-    latent_dim_dict = {
-        "1": 4,
-        "2": 8,
-        "3": 16
-    }
-    log_transform = False
-    scale_node_size = False
-    output_layer = "gaussian"
-    # ToDo check
-    pre_warm_up = 100
-    max_beta = 1.
-    beta = 0.02
+    if not aggressive and not pretrain_decoder:
+        pre_warm_up = 0
+        max_beta = 1.
+        beta = 0.02
 else:
     raise ValueError('data_origin not recognized')
 
@@ -164,7 +141,9 @@ lr_schedule_factor = 0.5
 lr_schedule_patience = 50
 val_bs = 16
 max_val_steps_per_epoch = 10
-epochs_warmup = 0
+epochs_warmup = int(100)  # we will train for 100 epochs without early stopping
+if not aggressive and not pretrain_decoder:
+    epochs_warmup = int(max_beta // beta - 1 + pre_warm_up)
 
 feature_space_id = "standard"
 cond_feature_space_id = "type"
@@ -176,8 +155,10 @@ use_covar_graph_covar = False
 cond_activation = 'relu'
 cond_use_bias = True
 
+use_batch_norm = True
+transform_input = True
+
 hpcontainer = HyperparameterContainer()
-cond_hpcontainer = ConditionalHyperparameterContainer()
 
 for radius_key in radius_keys.split("+"):
     for learning_rate_key in learning_rate_keys.split("+"):
@@ -185,14 +166,13 @@ for radius_key in radius_keys.split("+"):
             for n_key in n_eval_nodes_keys.split("+"):
                 # Set ID of output:
                 model_id_base = f"{gs_id}_{optimizer}_lr{str(learning_rate_key)}" \
-                           f"_bs{str(batch_size_key)}_md{str(radius_key)}_tk{str(transform_key)}_n{str(n_key)}" \
-                           f"_fs{str(feature_space_id)}_l2{str(l2_key)}_l1{str(l1_key)}"
-                model_id_ed = f"_ldi{str(latent_dim_key)}_ei{str(encoder_intermediate_dim_key)}_" \
-                              f"di{str(decoder_intermediate_dim_key)}_ede{str(encoder_depth_key)}_" \
-                              f"dde{str(decoder_depth_key)}_dr{str(dropout_rate_key)}"
-                model_id_cond = f"_COND_cde{str(cond_depth_key)}_cb{str(cond_use_bias)}" \
-                                f"_cdi{str(cond_dim_key)}_cdr{str(cond_dropout_rate_key)}_cl2{str(cond_l2_req_key)}"
-                model_id = model_id_base + model_id_ed + model_id_cond
+                                f"_bs{str(batch_size_key)}_md{str(radius_key)}_tk{str(transform_key)}_n{str(n_key)}" \
+                                f"_fs{str(feature_space_id)}_l2{str(l2_key)}_l1{str(l1_key)}"
+                model_id_cvae = f"_ldi{str(latent_dim_key)}_ei{str(encoder_intermediate_dim_key)}_" \
+                                f"di{str(decoder_intermediate_dim_key)}_ede{str(encoder_depth_key)}_" \
+                                f"dde{str(decoder_depth_key)}_dr{str(dropout_rate_key)}_" \
+                                f"agg{str(aggressive)}_predec{str(pretrain_decoder)}"
+                model_id = model_id_base + model_id_cvae
                 run_params = {
                     'model_class': model_class,
                     'gs_id': gs_id,
@@ -225,7 +205,6 @@ for radius_key in radius_keys.split("+"):
                     'batch_size': hpcontainer.batch_size[batch_size_key]
                 }
                 kwargs_estim_init = {
-                    "cond_type": cond_type,
                     "use_type_cond": use_type_cond,
                     "log_transform": log_transform,
                 }
@@ -237,22 +216,17 @@ for radius_key in radius_keys.split("+"):
                     'l2_coef': hpcontainer.l2_coef[l2_key],
                     'l1_coef': hpcontainer.l1_coef[l1_key],
 
-                    "enc_intermediate_dim": intermediate_dim_dict[encoder_intermediate_dim_key],
-                    "enc_depth": hpcontainer.depth[encoder_depth_key],
-                    "dec_intermediate_dim": intermediate_dim_dict[decoder_intermediate_dim_key],
-                    "dec_depth": hpcontainer.depth[decoder_depth_key],
-
-                    "cond_depth": cond_hpcontainer.conditional_depth[cond_depth_key],
-                    "cond_dim": cond_hpcontainer.conditional_dimension[cond_dim_key],
-                    "cond_dropout_rate": cond_hpcontainer.conditional_dropout[cond_dropout_rate_key],
-                    "cond_activation": cond_activation,
-                    "cond_l2_reg": cond_hpcontainer.conditional_l2_dict[cond_l2_req_key],
-                    "cond_use_bias": cond_use_bias,
+                    "intermediate_dim_enc": intermediate_dim_dict[encoder_intermediate_dim_key],
+                    "depth_enc": hpcontainer.depth[encoder_depth_key],
+                    "intermediate_dim_dec": intermediate_dim_dict[decoder_intermediate_dim_key],
+                    "depth_dec": hpcontainer.depth[decoder_depth_key],
 
                     "n_eval_nodes_per_graph": hpcontainer.n_eval_nodes[n_key],
 
                     "use_domain": use_domain,
+                    "use_batch_norm": use_batch_norm,
                     "scale_node_size": scale_node_size,
+                    "transform_input": transform_input,
 
                     "beta": beta,
                     "max_beta": max_beta,
@@ -274,7 +248,7 @@ for radius_key in radius_keys.split("+"):
                     model_id_cv = model_id + "_cv" + str(i)
                     fn_tensorboard_cv = None  # out_path + "/logs/" + model_id_cv
                     fn_out_cv = out_path + "/results/" + model_id_cv
-                    trainer = ncem.train.TrainModelEDncem()
+                    trainer = ncem.train.TrainModelCVAE()
                     if hpcontainer.batch_size[batch_size_key] is None:
                         bs = len(list(trainer.estimator.complete_img_keys))
                         shuffle_buffer_size = None
