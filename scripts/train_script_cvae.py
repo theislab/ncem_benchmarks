@@ -4,7 +4,7 @@ import time
 import tensorflow as tf
 
 import ncem
-from ncem_branchmarks import HyperparameterContainer, ConditionalHyperparameterContainer
+from ncem_branchmarks import HyperparameterContainer
 
 print(tf.__version__)
 
@@ -48,6 +48,7 @@ model_class = sys.argv[34].lower()
 gs_id = sys.argv[35].lower()
 data_path_base = sys.argv[36]
 out_path = sys.argv[37]
+split_mode = sys.argv[38].lower()
 
 if data_set == 'zhang':
     data_path = data_path_base + '/zhang/'

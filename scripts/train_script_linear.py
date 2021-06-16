@@ -4,31 +4,29 @@ import time
 import tensorflow as tf
 
 import ncem
-from ncem_branchmarks import HyperparameterContainer, ConditionalHyperparameterContainer
+from ncem_branchmarks import HyperparameterContainer
 
 print(tf.__version__)
 
 # Set global variables.
 print("sys.argv", sys.argv)
 
-# manual inputs
 data_set = sys.argv[1].lower()
 optimizer = sys.argv[2].lower()
-domain_type = sys.argv[4].lower()
-learning_rate_keys = sys.argv[5]
-l1_key = sys.argv[12]
-l2_keys = sys.argv[13]
+domain_type = sys.argv[3].lower()
+learning_rate_keys = sys.argv[4]
+l1_key = sys.argv[5]
+l2_keys = sys.argv[6]
 
-# other
-batch_size_key = sys.argv[22]
-radius_keys = sys.argv[24]
-transform_key = sys.argv[26]
-n_eval_nodes_keys = sys.argv[27]
+batch_size_key = sys.argv[7]
+radius_keys = sys.argv[8]
+transform_key = sys.argv[9]
+n_eval_nodes_keys = sys.argv[10]
 
-model_class = sys.argv[34].lower()
-gs_id = sys.argv[35].lower()
-data_path_base = sys.argv[36]
-out_path = sys.argv[37]
+model_class = sys.argv[11].lower()
+gs_id = sys.argv[12].lower()
+data_path_base = sys.argv[13]
+out_path = sys.argv[14]
 
 if data_set == 'zhang':
     data_path = data_path_base + '/zhang/'
@@ -185,38 +183,26 @@ for radius_key in radius_keys.split("+"):
                     'epochs': epochs,
                     'batch_size': hpcontainer.batch_size[batch_size_key]
                 }
+                kwargs_estim_init = {
+                    "log_transform": log_transform,
+                }
+                kwargs_train = {}
                 if model_class == "linear_baseline":
-                    kwargs_estim_init = {
-                        "log_transform": log_transform,
-                    }
                     kwargs_model_init = {
                         "use_source_type": False
                     }
-                    kwargs_train = {}
                 elif model_class == "linear":
-                    kwargs_estim_init = {
-                        "log_transform": log_transform,
-                    }
                     kwargs_model_init = {
                         "use_source_type": True
                     }
-                    kwargs_train = {}
                 elif model_class == "interactions_baseline":
-                    kwargs_estim_init = {
-                        "log_transform": log_transform,
-                    }
                     kwargs_model_init = {
                         "use_interactions": False
                     }
-                    kwargs_train = {}
                 elif model_class == "interactions":
-                    kwargs_estim_init = {
-                        "log_transform": log_transform,
-                    }
                     kwargs_model_init = {
                         "use_interactions": True
                     }
-                    kwargs_train = {}
                 else:
                     raise ValueError("model_class %s not recognized" % model_class)
                 kwargs_model_init.update({
@@ -225,11 +211,12 @@ for radius_key in radius_keys.split("+"):
                     'l2_coef': hpcontainer.l2_coef[l2_key],
                     'l1_coef': hpcontainer.l1_coef[l1_key],
 
+                    "n_eval_nodes_per_graph": hpcontainer.n_eval_nodes[n_key],
+
                     "use_domain": use_domain,
                     "scale_node_size": scale_node_size,
                     "output_layer": output_layer,
                 })
-                kwargs_model_init.update({"n_eval_nodes_per_graph": hpcontainer.n_eval_nodes[n_key]})
                 run_params.update(kwargs_estim_init)
                 run_params.update(kwargs_model_init)
                 run_params.update(kwargs_train)
