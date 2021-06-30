@@ -14,31 +14,29 @@ print("sys.argv", sys.argv)
 # manual inputs
 data_set = sys.argv[1].lower()
 optimizer = sys.argv[2].lower()
-domain_type = sys.argv[4].lower()
+domain_type = sys.argv[3].lower()
 
-learning_rate_keys = sys.argv[5]
-latent_dim_key = sys.argv[10]
-dropout_rate_key = sys.argv[11]
-l1_key = sys.argv[12]
-l2_keys = sys.argv[13]
+learning_rate_keys = sys.argv[4]
+latent_dim_keys = sys.argv[5]
+dropout_rate_key = sys.argv[6]
+l1_key = sys.argv[7]
+l2_keys = sys.argv[8]
 
-encoder_intermediate_dim_key = sys.argv[6]
-encoder_depth_key = sys.argv[7]
-decoder_intermediate_dim_key = sys.argv[8]
-decoder_depth_key = sys.argv[9]
-
-n_eval_nodes_keys = sys.argv[27]
-use_type_cond = bool(int(sys.argv[14]))
+encoder_intermediate_dim_key = sys.argv[9]
+encoder_depth_key = sys.argv[10]
+decoder_intermediate_dim_key = sys.argv[11]
+decoder_depth_key = sys.argv[12]
 
 # other
-batch_size_key = sys.argv[22]
-radius_keys = sys.argv[24]
-transform_key = sys.argv[26]
+batch_size_key = sys.argv[13]
+radius_key = sys.argv[14]
+n_eval_nodes_keys = sys.argv[15]
+use_type_cond = bool(int(sys.argv[16]))
 
-model_class = sys.argv[34].lower()
-gs_id = sys.argv[35].lower()
-data_path_base = sys.argv[36]
-out_path = sys.argv[37]
+model_class = sys.argv[17].lower()
+gs_id = sys.argv[18].lower()
+data_path_base = sys.argv[19]
+out_path = sys.argv[20]
 
 if data_set == 'zhang':
     data_path = data_path_base + '/zhang/'
@@ -169,15 +167,15 @@ use_covar_graph_covar = False
 
 hpcontainer = HyperparameterContainer()
 
-for radius_key in radius_keys.split("+"):
+for ld in latent_dim_keys.split("+"):
     for learning_rate_key in learning_rate_keys.split("+"):
         for l2_key in l2_keys.split("+"):
             for n_key in n_eval_nodes_keys.split("+"):
                 # Set ID of output:
-                model_id_base = f"{gs_id}_{optimizer}_lr{str(learning_rate_key)}" \
-                                f"_bs{str(batch_size_key)}_md{str(radius_key)}_tk{str(transform_key)}_n{str(n_key)}" \
+                model_id_base = f"{gs_id}_{optimizer}_lr{str(lr)}" \
+                                f"_bs{str(batch_size_key)}_md{str(radius_key)}_n{str(n_key)}" \
                                 f"_fs{str(feature_space_id)}_l2{str(l2_key)}_l1{str(l1_key)}"
-                model_id_ed = f"_ldi{str(latent_dim_key)}_ei{str(encoder_intermediate_dim_key)}_" \
+                model_id_ed = f"_ldi{str(ld)}_ei{str(encoder_intermediate_dim_key)}_" \
                               f"di{str(decoder_intermediate_dim_key)}_ede{str(encoder_depth_key)}_" \
                               f"dde{str(decoder_depth_key)}_dr{str(dropout_rate_key)}"
                 model_id = model_id_base + model_id_ed
@@ -217,7 +215,7 @@ for radius_key in radius_keys.split("+"):
                 kwargs_model_init = {
                     "optimizer": optimizer,
                     'learning_rate': hpcontainer.learning_rate[learning_rate_key],
-                    'latent_dim': latent_dim_dict[latent_dim_key],
+                    'latent_dim': latent_dim_dict[ld],
                     'dropout_rate': hpcontainer.dropout[dropout_rate_key],
                     'l2_coef': hpcontainer.l2_coef[l2_key],
                     'l1_coef': hpcontainer.l1_coef[l1_key],
