@@ -188,11 +188,9 @@ for radius_key in radius_keys.split("+"):
                     'graph_covar_selection': covar_selection,
                     'node_label_space_id': cond_feature_space_id,
                     'node_feature_space_id': feature_space_id,
-                    #'feature_transformation': transformation_dict[transform_key],
                     'use_covar_node_position': use_covar_node_position,
                     'use_covar_node_label': use_covar_node_label,
                     'use_covar_graph_covar': use_covar_graph_covar,
-                    # 'hold_out_covariate': hold_out_covariate,
 
                     'optimizer': optimizer,
                     'learning_rate': hpcontainer.learning_rate[learning_rate_key],
@@ -275,11 +273,9 @@ for radius_key in radius_keys.split("+"):
                         graph_covar_selection=covar_selection,
                         node_label_space_id=cond_feature_space_id,
                         node_feature_space_id=feature_space_id,
-                        # feature_transformation=transformation_dict[transform_key],
                         use_covar_node_position=use_covar_node_position,
                         use_covar_node_label=use_covar_node_label,
                         use_covar_graph_covar=use_covar_graph_covar,
-                        # hold_out_covariate=hold_out_covariate,
                         domain_type=domain_type,
                         merge_node_types_predefined=merge_node_types_predefined,
                     )

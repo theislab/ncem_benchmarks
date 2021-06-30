@@ -20,13 +20,12 @@ l2_keys = sys.argv[6]
 
 batch_size_key = sys.argv[7]
 radius_keys = sys.argv[8]
-transform_key = sys.argv[9]
-n_eval_nodes_keys = sys.argv[10]
+n_eval_nodes_keys = sys.argv[9]
 
-model_class = sys.argv[11].lower()
-gs_id = sys.argv[12].lower()
-data_path_base = sys.argv[13]
-out_path = sys.argv[14]
+model_class = sys.argv[10].lower()
+gs_id = sys.argv[11].lower()
+data_path_base = sys.argv[12]
+out_path = sys.argv[13]
 
 if data_set == 'zhang':
     data_path = data_path_base + '/zhang/'
@@ -163,11 +162,9 @@ for radius_key in radius_keys.split("+"):
                     'graph_covar_selection': covar_selection,
                     'node_label_space_id': cond_feature_space_id,
                     'node_feature_space_id': feature_space_id,
-                    #'feature_transformation': transformation_dict[transform_key],
                     'use_covar_node_position': use_covar_node_position,
                     'use_covar_node_label': use_covar_node_label,
                     'use_covar_graph_covar': use_covar_graph_covar,
-                    # 'hold_out_covariate': hold_out_covariate,
 
                     'optimizer': optimizer,
                     'learning_rate': hpcontainer.learning_rate[learning_rate_key],
@@ -251,11 +248,9 @@ for radius_key in radius_keys.split("+"):
                         graph_covar_selection=covar_selection,
                         node_label_space_id=cond_feature_space_id,
                         node_feature_space_id=feature_space_id,
-                        # feature_transformation=transformation_dict[transform_key],
                         use_covar_node_position=use_covar_node_position,
                         use_covar_node_label=use_covar_node_label,
                         use_covar_graph_covar=use_covar_graph_covar,
-                        # hold_out_covariate=hold_out_covariate,
                         domain_type=domain_type,
                         merge_node_types_predefined=merge_node_types_predefined,
                     )

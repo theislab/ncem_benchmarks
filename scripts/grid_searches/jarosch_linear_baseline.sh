@@ -8,17 +8,13 @@ PARTITION="gpu_p"
 MODEL_CLASS="LINEAR_BASELINE"
 DATA_SET="JAROSCH"
 OPTIMIZER=("ADAM")
-COND_TYPE=("MAX")
 DOMAIN_TYPE=("PATIENT")
-LR_KEYS=("1")
+LR_KEY=("1")
 L1_KEY=("1")
-L2_KEYS=("1")
-USE_TYPE_COND=("1")
+L2_KEY=("1")
 BATCH_SIZE=("S")
 RADIUS_KEYS=("0")
-TRANSFORM_KEY=("4")
 N_EVAL_KEYS=("100")
-SPLIT_MODE=("NODES")
 
 GS_KEY="210520_${MODEL_CLASS}_${COND_TYPE}_${SPLIT_MODE}_${DOMAIN_TYPE}_${USE_TYPE_COND}_${DATA_SET}"
 OUT_PATH=${OUT_PATH_BASE}/grid_searches_gen/${GS_KEY}
@@ -35,7 +31,6 @@ mkdir -p ${OUT_PATH}/results
 for rd in ${RADIUS_KEYS[@]}; do
     for vl1 in ${L1_KEY[@]}; do
         for bs in ${BATCH_SIZE[@]}; do
-            for tk in ${TRANSFORM_KEY[@]}; do
                 for sm in ${SPLIT_MODE[@]}; do
                     sleep 0.1
                         job_file="${OUT_PATH}/jobs/run_${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${COND_TYPE}_${vl1}_${bs}_${nf}_${rd}_${rs}_${tk}_${N_EVAL_KEYS}_${sm}_${GS_KEY}.cmd"
@@ -55,8 +50,7 @@ source ~/.bash_profile
 conda activate tissuegpu
 python3 ${CODE_PATH}/tissue/tissue/train/train_script_generative.py ${DATA_SET} ${OPTIMIZER} ${COND_TYPE} ${DOMAIN_TYPE} ${LR_KEYS} 1 1 1 1 1 1 ${vl1} ${L2_KEYS} ${USE_TYPE_COND} 1 0 1 1 1 1 1 ${bs} ${nf} ${rd} ${rs} ${tk} ${N_EVAL_KEYS} RGAN 1 1 1 1 ${BEST_NSV_PATH} ${MODEL_CLASS} ${GS_KEY} ${DATA_PATH_BASE} ${OUT_PATH} ${sm}
 " > ${job_file}
-                    sbatch $job_file
-                done
+                sbatch $job_file
             done
         done
     done

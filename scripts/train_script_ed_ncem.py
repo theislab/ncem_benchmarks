@@ -79,7 +79,6 @@ if data_set == 'zhang':
     log_transform = False
     scale_node_size = False
     output_layer = "gaussian_const_disp"
-    # ToDo check
     pre_warm_up = 0
     max_beta = 1.
     beta = 0.02
@@ -114,7 +113,6 @@ elif data_set == 'jarosch':
     log_transform = True
     scale_node_size = False
     output_layer = "gaussian"
-    # ToDo check
     pre_warm_up = 0
     max_beta = 1.
     beta = 1.
@@ -147,7 +145,6 @@ elif data_set == 'hartmann':
     log_transform = False
     scale_node_size = False
     output_layer = "gaussian"
-    # ToDo check
     pre_warm_up = 100
     max_beta = 1.
     beta = 0.02
@@ -204,11 +201,9 @@ for radius_key in radius_keys.split("+"):
                     'graph_covar_selection': covar_selection,
                     'node_label_space_id': cond_feature_space_id,
                     'node_feature_space_id': feature_space_id,
-                    #'feature_transformation': transformation_dict[transform_key],
                     'use_covar_node_position': use_covar_node_position,
                     'use_covar_node_label': use_covar_node_label,
                     'use_covar_graph_covar': use_covar_graph_covar,
-                    # 'hold_out_covariate': hold_out_covariate,
 
                     'optimizer': optimizer,
                     'learning_rate': hpcontainer.learning_rate[learning_rate_key],
@@ -289,11 +284,9 @@ for radius_key in radius_keys.split("+"):
                         graph_covar_selection=covar_selection,
                         node_label_space_id=cond_feature_space_id,
                         node_feature_space_id=feature_space_id,
-                        # feature_transformation=transformation_dict[transform_key],
                         use_covar_node_position=use_covar_node_position,
                         use_covar_node_label=use_covar_node_label,
                         use_covar_graph_covar=use_covar_graph_covar,
-                        # hold_out_covariate=hold_out_covariate,
                         domain_type=domain_type,
                         merge_node_types_predefined=merge_node_types_predefined,
                     )
