@@ -19,5 +19,5 @@ setup(
         'ncem'
     ],
     extras_require={},
-    version="0.1",
+    version="0.2.0",
 )
