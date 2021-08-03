@@ -7,7 +7,7 @@ This repository contains grid search preparation, execution and evaluation code 
 Next to python and shell scripts for grid searches and jupyter notebooks for results evaluation, this repository contains shallow infrastructure for defining hyperparameters in grid searches under `ncem_benchmarks/`.
 Install this package via `pip install -e .` into a python environment with an existing ncem installation to make this infrastructure available to the grid search scripts defined in this repository.
 
-Before running grid searches, prepare the data as described in `scripts/data_preparation/`.
+Before running grid searches, prepare the data as described in `notebooks/data_preparation/`.
 Grid searches and production model training can be run using the scripts as described in `scripts/grid_searches/`.
 
 
