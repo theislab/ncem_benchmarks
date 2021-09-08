@@ -4,7 +4,7 @@ import time
 import tensorflow as tf
 
 import ncem
-from ncem_branchmarks import HyperparameterContainer
+from ncem_benchmarks import HyperparameterContainer
 
 print(tf.__version__)
 
@@ -114,6 +114,25 @@ elif data_set == 'schuerch':
         "7": 35,
         "8": 40,
         "9": 45
+    }
+    log_transform = True
+    scale_node_size = False
+    output_layer = 'linear'
+elif data_set == 'lohoff':
+    data_path = data_path_base + '/lohoff/'
+    use_domain = True
+    merge_node_types_predefined = False
+    covar_selection = []
+    radius_dict = {
+        "0": 0,
+        "1": 2,
+        "3": 5,
+        "4": 10,
+        "5": 20,
+        "6": 40,
+        "7": 80,
+        "8": 200,
+        "9": 800,
     }
     log_transform = True
     scale_node_size = False
@@ -233,12 +252,6 @@ for learning_rate_key in learning_rate_keys.split("+"):
                     trainer = ncem.train.TrainModelLinear()
                 else:
                     raise ValueError("model_class %s not recognized" % model_class)
-                if hpcontainer.batch_size[batch_size_key] is None:
-                    bs = len(list(trainer.estimator.complete_img_keys))
-                    shuffle_buffer_size = None
-                else:
-                    bs = hpcontainer.batch_size[batch_size_key]
-                    shuffle_buffer_size = int(100)
                 trainer.init_estim(**kwargs_estim_init)
                 trainer.estimator.get_data(
                     data_origin=data_set,
@@ -251,13 +264,18 @@ for learning_rate_key in learning_rate_keys.split("+"):
                     use_covar_node_label=use_covar_node_label,
                     use_covar_graph_covar=use_covar_graph_covar,
                     domain_type=domain_type,
-                    merge_node_types_predefined=merge_node_types_predefined,
                 )
                 trainer.estimator.split_data_node(
                     validation_split=0.1,
                     test_split=0.1,
                     seed=i
                 )
+                if hpcontainer.batch_size[batch_size_key] is None:
+                    bs = len(list(trainer.estimator.complete_img_keys))
+                    shuffle_buffer_size = None
+                else:
+                    bs = hpcontainer.batch_size[batch_size_key]
+                    shuffle_buffer_size = int(100)
                 trainer.estimator.init_model(
                     **kwargs_model_init
                 )

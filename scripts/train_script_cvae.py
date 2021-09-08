@@ -240,12 +240,7 @@ for ld in latent_dim_keys.split("+"):
                     fn_tensorboard_cv = None  # out_path + "/logs/" + model_id_cv
                     fn_out_cv = out_path + "/results/" + model_id_cv
                     trainer = ncem.train.TrainModelCVAE()
-                    if hpcontainer.batch_size[batch_size_key] is None:
-                        bs = len(list(trainer.estimator.complete_img_keys))
-                        shuffle_buffer_size = None
-                    else:
-                        bs = hpcontainer.batch_size[batch_size_key]
-                        shuffle_buffer_size = int(100)
+
                     trainer.init_estim(**kwargs_estim_init)
                     trainer.estimator.get_data(
                         data_origin=data_set,
@@ -258,13 +253,18 @@ for ld in latent_dim_keys.split("+"):
                         use_covar_node_label=use_covar_node_label,
                         use_covar_graph_covar=use_covar_graph_covar,
                         domain_type=domain_type,
-                        merge_node_types_predefined=merge_node_types_predefined,
                     )
                     trainer.estimator.split_data_node(
                         validation_split=0.1,
                         test_split=0.1,
                         seed=i
                     )
+                    if hpcontainer.batch_size[batch_size_key] is None:
+                        bs = len(list(trainer.estimator.complete_img_keys))
+                        shuffle_buffer_size = None
+                    else:
+                        bs = hpcontainer.batch_size[batch_size_key]
+                        shuffle_buffer_size = int(100)
                     trainer.estimator.init_model(
                         **kwargs_model_init
                     )
