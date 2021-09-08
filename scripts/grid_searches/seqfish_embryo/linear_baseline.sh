@@ -46,14 +46,14 @@ for rd in ${RADIUS_KEYS[@]}; do
 #SBATCH -J ${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${LR_KEYS}_${l1}_${L2_KEYS}_${bs}_${rd}_${N_EVAL_KEYS}_${GS_KEY}
 #SBATCH -o ${OUT_PATH}/jobs/run_${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${LR_KEYS}_${l1}_${L2_KEYS}_${bs}_${rd}_${N_EVAL_KEYS}_${GS_KEY}.out
 #SBATCH -e ${OUT_PATH}/jobs/run_${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${LR_KEYS}_${l1}_${L2_KEYS}_${bs}_${rd}_${N_EVAL_KEYS}_${GS_KEY}.err
-#SBATCH -p ${SBATCH_P}
-#SBATCH -qos==${SBATCH_QOS}
-#SBATCH --gres=${SBATCH_GRES}
-#SBATCH -t ${SBATCH_TIME}
-#SBATCH --mem=${SBATCH_MEM}
-#SBATCH -c ${SBATCH_C}
-#SBATCH --nice=${SBATCH_NICE}
-#SBATCH --nodelist=${SBATCH_NODELIST}
+#SBATCH -p gpu_p
+#SBATCH --qos=gpu
+#SBATCH --gres=gpu:1
+#SBATCH -t 2-00:00:00
+#SBATCH --mem=50G
+#SBATCH -c 4
+#SBATCH --nice=1000
+#SBATCH --nodelist=supergpu02pxe
 
 source ~/.bash_profile
 conda activate ncem
