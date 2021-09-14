@@ -137,6 +137,44 @@ elif data_set == 'lohoff':
     log_transform = True
     scale_node_size = False
     output_layer = 'linear'
+elif data_set == 'luwt':
+    data_path = data_path_base + '/lu/'
+    use_domain = True
+    merge_node_types_predefined = False
+    covar_selection = []
+    radius_dict = {
+        "0": 0,
+        "1": 2,
+        "2": 5,
+        "3": 10,
+        "4": 20,
+        "5": 40,
+        "6": 80,
+        "7": 200,
+        "8": 800,
+    }
+    log_transform = True
+    scale_node_size = False
+    output_layer = 'linear'
+elif data_set == 'lutet2':
+    data_path = data_path_base + '/lu/'
+    use_domain = True
+    merge_node_types_predefined = False
+    covar_selection = []
+    radius_dict = {
+        "0": 0,
+        "1": 2,
+        "2": 5,
+        "3": 10,
+        "4": 20,
+        "5": 40,
+        "6": 80,
+        "7": 200,
+        "8": 800,
+    }
+    log_transform = True
+    scale_node_size = False
+    output_layer = 'linear'
 else:
     raise ValueError('data_origin not recognized')
 
