@@ -1,18 +1,18 @@
 #!/bin/bash
 
 CODE_PATH=$HOME/git
-OUT_PATH_BASE="."
+OUT_PATH_BASE="/storage/groups/ml01/workspace/${USER}/ncem"
 GS_PATH="${OUT_PATH_BASE}/grid_searches/"
-DATA_PATH="."
+DATA_PATH="/storage/groups/ml01/workspace/${USER}/ncem/data"
 
-SBATCH_P=""
-SBATCH_QOS=""
-SBATCH_GRES=""
-SBATCH_TIME=""
-SBATCH_MEM=""
-SBATCH_C=""
-SBATCH_NICE=""
-SBATCH_EXCLUDE=""
+SBATCH_P="gpu_p"
+SBATCH_QOS="gpu"
+SBATCH_GRES="gpu:1"
+SBATCH_TIME="2-00:00:00"
+SBATCH_MEM="50G"
+SBATCH_C="4"
+SBATCH_NICE="1000"
+SBATCH_NODELIST="supergpu02pxe"
 
 MODEL_CLASS="INTERACTIONS_BASELINE"
 DATA_SET="10xvisium"
