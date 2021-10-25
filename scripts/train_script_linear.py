@@ -43,6 +43,10 @@ if data_set == 'zhang':
         "7": 1000,
         "8": 6000,
     }
+    n_rings_dict = {
+        "0": None
+    }
+    n_rings_key = "0"
     log_transform = False
     scale_node_size = False
     output_layer = 'linear'
@@ -61,6 +65,10 @@ elif data_set == 'jarosch':
         "6": 800,
         "7": 5000
     }
+    n_rings_dict = {
+        "0": None
+    }
+    n_rings_key = "0"
     log_transform = True
     scale_node_size = False
     output_layer = 'linear'
@@ -77,6 +85,10 @@ elif data_set == 'hartmann':
         "4": 400,
         "5": 1600,
     }
+    n_rings_dict = {
+        "0": None
+    }
+    n_rings_key = "0"
     log_transform = False
     scale_node_size = False
     output_layer = 'linear'
@@ -95,6 +107,10 @@ elif data_set == "pascualreguant":
         "6": 500,
         "7": 3000,
     }
+    n_rings_dict = {
+        "0": None
+    }
+    n_rings_key = "0"
     log_transform = False
     scale_node_size = True
     output_layer = 'linear'
@@ -115,6 +131,10 @@ elif data_set == 'schuerch':
         "8": 40,
         "9": 45
     }
+    n_rings_dict = {
+        "0": None
+    }
+    n_rings_key = "0"
     log_transform = True
     scale_node_size = False
     output_layer = 'linear'
@@ -134,6 +154,10 @@ elif data_set == 'lohoff':
         "7": 200,
         "8": 800,
     }
+    n_rings_dict = {
+        "0": None
+    }
+    n_rings_key = "0"
     log_transform = True
     scale_node_size = False
     output_layer = 'linear'
@@ -153,6 +177,10 @@ elif data_set == 'luwt':
         "7": 800,
         "8": 2000,
     }
+    n_rings_dict = {
+        "0": None
+    }
+    n_rings_key = "0"
     log_transform = True
     scale_node_size = False
     output_layer = 'linear'
@@ -172,7 +200,33 @@ elif data_set == 'lutet2':
         "7": 800,
         "8": 2000,
     }
+    n_rings_dict = {
+        "0": None
+    }
+    n_rings_key = "0"
     log_transform = True
+    scale_node_size = False
+    output_layer = 'linear'
+elif data_set == '10xvisium':
+    data_path = data_path_base + '/lu/'
+    use_domain = True
+    merge_node_types_predefined = False
+    covar_selection = []
+    n_rings_key = radius_key
+    radius_dict = {
+        "0": None
+    }
+    radius_key = "0"
+    n_rings_dict = {
+        "0": 0,
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "6": 6,
+        "10": 10,
+        "20": 20,
+    }
+    log_transform = False
     scale_node_size = False
     output_layer = 'linear'
 else:
@@ -204,7 +258,7 @@ for learning_rate_key in learning_rate_keys.split("+"):
         for n_key in n_eval_nodes_keys.split("+"):
             # Set ID of output:
             model_id_base = f"{gs_id}_{optimizer}_lr{str(learning_rate_key)}" \
-                       f"_bs{str(batch_size_key)}_md{str(radius_key)}_n{str(n_key)}" \
+                       f"_bs{str(batch_size_key)}_md{str(radius_key)}_ri{str(n_rings_key)}_n{str(n_key)}" \
                        f"_fs{str(feature_space_id)}_l2{str(l2_key)}_l1{str(l1_key)}"
             model_id = model_id_base
             run_params = {
@@ -215,6 +269,7 @@ for learning_rate_key in learning_rate_keys.split("+"):
 
                 'data_set': data_set,
                 'radius': radius_dict[radius_key],
+                'n_rings': n_rings_dict[n_rings_key],
                 'graph_covar_selection': covar_selection,
                 'node_label_space_id': cond_feature_space_id,
                 'node_feature_space_id': feature_space_id,
@@ -295,6 +350,7 @@ for learning_rate_key in learning_rate_keys.split("+"):
                     data_origin=data_set,
                     data_path=data_path,
                     radius=radius_dict[radius_key],
+                    n_rings_dict=n_rings_dict[n_rings_key],
                     graph_covar_selection=covar_selection,
                     node_label_space_id=cond_feature_space_id,
                     node_feature_space_id=feature_space_id,
