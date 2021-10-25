@@ -22,7 +22,7 @@ LR_KEYS=("1")
 L1_KEY=("1")
 L2_KEYS=("1")
 BATCH_SIZE=("S")
-N_RINGS_KEYS=("0")
+N_RINGS_KEYS=("1")
 N_EVAL_KEYS=("10")
 
 GS_KEY="$(date '+%y%m%d')_${MODEL_CLASS}_${DOMAIN_TYPE}_${DATA_SET}"
