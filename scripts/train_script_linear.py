@@ -350,7 +350,7 @@ for learning_rate_key in learning_rate_keys.split("+"):
                     data_origin=data_set,
                     data_path=data_path,
                     radius=radius_dict[radius_key],
-                    n_rings_dict=n_rings_dict[n_rings_key],
+                    n_rings=n_rings_dict[n_rings_key],
                     graph_covar_selection=covar_selection,
                     node_label_space_id=cond_feature_space_id,
                     node_feature_space_id=feature_space_id,
