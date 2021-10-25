@@ -214,7 +214,7 @@ elif data_set == '10xvisium':
     covar_selection = []
     n_rings_key = radius_key
     radius_dict = {
-        "0": None
+        "0": 0
     }
     radius_key = "0"
     n_rings_dict = {
@@ -227,6 +227,9 @@ elif data_set == '10xvisium':
         "6": 6,
         "10": 10,
         "20": 20,
+        "50": 50,
+        "100": 100,
+        "200": 200
     }
     log_transform = False
     scale_node_size = False

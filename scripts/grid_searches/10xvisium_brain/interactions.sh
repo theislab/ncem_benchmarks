@@ -22,10 +22,10 @@ LR_KEYS=("1")
 L1_KEY=("1")
 L2_KEYS=("1")
 BATCH_SIZE=("S")
-N_RINGS_KEYS=("1" "2" "3" "4" "5" "6" "10" "20")
+N_RINGS_KEYS=("1" "2" "3" "4" "5" "6" "10" "20" "50" "100" "200")
 N_EVAL_KEYS=("10")
 
-GS_KEY="$(date '+%y%m%d')_${MODEL_CLASS}_${DOMAIN_TYPE}_${DATA_SET}"
+GS_KEY="$(date '+%y%m%d')b_${MODEL_CLASS}_${DOMAIN_TYPE}_${DATA_SET}"
 OUT_PATH=${GS_PATH}/${GS_KEY}
 
 # dummy values for this model class have hard-encoded default values in this grid search
