@@ -208,7 +208,7 @@ elif data_set == 'lutet2':
     scale_node_size = False
     output_layer = 'linear'
 elif data_set == '10xvisium':
-    data_path = data_path_base + '/lu/'
+    data_path = data_path_base + '/10xvisium/'
     use_domain = True
     merge_node_types_predefined = False
     covar_selection = []
