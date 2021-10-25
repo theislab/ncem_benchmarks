@@ -53,7 +53,7 @@ for rd in ${N_RINGS_KEYS[@]}; do
 #SBATCH --mem=50G
 #SBATCH -c 4
 #SBATCH --nice=1000
-#SBATCH --nodelist=supergpu02pxe
+#SBATCH --nodelist=supergpu05
 
 source "$HOME"/.bashrc
 conda activate ncem
