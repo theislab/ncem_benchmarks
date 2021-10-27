@@ -1,18 +1,18 @@
 #!/bin/bash
 
 CODE_PATH=$HOME/git
-OUT_PATH_BASE="."
+OUT_PATH_BASE="/storage/groups/ml01/workspace/${USER}/ncem"
 GS_PATH="${OUT_PATH_BASE}/grid_searches/"
-DATA_PATH="."
+DATA_PATH="/storage/groups/ml01/workspace/${USER}/tissue/data"
 
-SBATCH_P=""
-SBATCH_QOS=""
-SBATCH_GRES=""
-SBATCH_TIME=""
-SBATCH_MEM=""
-SBATCH_C=""
-SBATCH_NICE=""
-SBATCH_EXCLUDE=""
+SBATCH_P="gpu_p"
+SBATCH_QOS="gpu"
+SBATCH_GRES="gpu:1"
+SBATCH_TIME="2-00:00:00"
+SBATCH_MEM="50G"
+SBATCH_C="4"
+SBATCH_NICE="1000"
+SBATCH_NODELIST="gpusrv12"
 
 MODEL_CLASS="INTERACTIONS_BASELINE"
 DATA_SET="zhang_robustness"
@@ -46,14 +46,14 @@ for rd in ${RADIUS_KEYS[@]}; do
 #SBATCH -J ${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${LR_KEYS}_${l1}_${L2_KEYS}_${bs}_${rd}_${N_EVAL_KEYS}_${GS_KEY}
 #SBATCH -o ${OUT_PATH}/jobs/run_${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${LR_KEYS}_${l1}_${L2_KEYS}_${bs}_${rd}_${N_EVAL_KEYS}_${GS_KEY}.out
 #SBATCH -e ${OUT_PATH}/jobs/run_${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${LR_KEYS}_${l1}_${L2_KEYS}_${bs}_${rd}_${N_EVAL_KEYS}_${GS_KEY}.err
-#SBATCH -p ${SBATCH_P}
-#SBATCH -q ${SBATCH_QOS}
-#SBATCH --gres=${SBATCH_GRES}
-#SBATCH -t ${SBATCH_TIME}
-#SBATCH --mem=${SBATCH_MEM}
-#SBATCH -c ${SBATCH_C}
-#SBATCH --nice=${SBATCH_NICE}
-#SBATCH --exclude=${SBATCH_EXCLUDE}
+#SBATCH -p gpu_p
+#SBATCH --qos=gpu
+#SBATCH --gres=gpu:1
+#SBATCH -t 2-00:00:00
+#SBATCH --mem=50G
+#SBATCH -c 4
+#SBATCH --nice=1000
+#SBATCH --nodelist=gpusrv12
 
 source "$HOME"/.bashrc
 conda activate ncem
