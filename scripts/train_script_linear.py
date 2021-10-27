@@ -27,6 +27,8 @@ gs_id = sys.argv[11].lower()
 data_path_base = sys.argv[12]
 out_path = sys.argv[13]
 
+robustness_fit = None
+
 if data_set == 'zhang':
     data_path = data_path_base + '/zhang/'
     use_domain = True
@@ -44,12 +46,36 @@ if data_set == 'zhang':
         "8": 6000,
     }
     n_rings_dict = {
-        "0": None
+        "0": 1
     }
     n_rings_key = "0"
     log_transform = False
     scale_node_size = False
     output_layer = 'linear'
+elif data_set == 'zhang_robustness':
+    data_path = data_path_base + '/zhang/'
+    use_domain = True
+    merge_node_types_predefined = True
+    covar_selection = []
+    radius_dict = {
+        "0": 0,
+        "1": 10,
+        "2": 25,
+        "3": 50,
+        "4": 100,
+        "5": 250,
+        "6": 500,
+        "7": 1000,
+        "8": 6000,
+    }
+    n_rings_dict = {
+        "0": 1
+    }
+    n_rings_key = "0"
+    log_transform = False
+    scale_node_size = False
+    output_layer = 'linear'
+    robustness_fit = 0.5
 elif data_set == 'jarosch':
     data_path = data_path_base + '/jarosch/'
     use_domain = True
@@ -66,7 +92,7 @@ elif data_set == 'jarosch':
         "7": 5000
     }
     n_rings_dict = {
-        "0": None
+        "0": 1
     }
     n_rings_key = "0"
     log_transform = True
@@ -86,7 +112,7 @@ elif data_set == 'hartmann':
         "5": 1600,
     }
     n_rings_dict = {
-        "0": None
+        "0": 1
     }
     n_rings_key = "0"
     log_transform = False
@@ -108,7 +134,7 @@ elif data_set == "pascualreguant":
         "7": 3000,
     }
     n_rings_dict = {
-        "0": None
+        "0": 1
     }
     n_rings_key = "0"
     log_transform = False
@@ -132,7 +158,7 @@ elif data_set == 'schuerch':
         "9": 45
     }
     n_rings_dict = {
-        "0": None
+        "0": 1
     }
     n_rings_key = "0"
     log_transform = True
@@ -155,7 +181,7 @@ elif data_set == 'lohoff':
         "8": 800,
     }
     n_rings_dict = {
-        "0": None
+        "0": 1
     }
     n_rings_key = "0"
     log_transform = True
@@ -178,7 +204,7 @@ elif data_set == 'luwt':
         "8": 2000,
     }
     n_rings_dict = {
-        "0": None
+        "0": 1
     }
     n_rings_key = "0"
     log_transform = True
@@ -201,7 +227,7 @@ elif data_set == 'lutet2':
         "8": 2000,
     }
     n_rings_dict = {
-        "0": None
+        "0": 1
     }
     n_rings_key = "0"
     log_transform = True
@@ -363,6 +389,7 @@ for learning_rate_key in learning_rate_keys.split("+"):
                     use_covar_node_label=use_covar_node_label,
                     use_covar_graph_covar=use_covar_graph_covar,
                     domain_type=domain_type,
+                    robustness=robustness_fit
                 )
                 trainer.estimator.split_data_node(
                     validation_split=0.1,
