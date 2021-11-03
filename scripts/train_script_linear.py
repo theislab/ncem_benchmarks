@@ -187,7 +187,7 @@ elif data_set == 'lohoff':
     log_transform = True
     scale_node_size = False
     output_layer = 'linear'
-elif data_set == 'luwt':
+elif data_set.startswith('luwt'):
     data_path = data_path_base + '/lu/'
     use_domain = True
     merge_node_types_predefined = False

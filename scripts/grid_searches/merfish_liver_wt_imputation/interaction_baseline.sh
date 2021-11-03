@@ -15,14 +15,14 @@ SBATCH_NICE="1000"
 SBATCH_NODELIST="supergpu02pxe"
 
 MODEL_CLASS="INTERACTIONS_BASELINE"
-DATA_SET="10xvisium"
+DATA_SET="luwt_imputation"
 OPTIMIZER="ADAM"
 DOMAIN_TYPE="PATIENT"
 LR_KEYS=("1")
 L1_KEY=("1")
 L2_KEYS=("1")
 BATCH_SIZE=("S")
-N_RINGS_KEYS=("0")
+RADIUS_KEYS=("0")
 N_EVAL_KEYS=("10")
 
 GS_KEY="$(date '+%y%m%d')_${MODEL_CLASS}_${DOMAIN_TYPE}_${DATA_SET}"
@@ -37,15 +37,15 @@ mkdir -p ${OUT_PATH}/jobs
 mkdir -p ${OUT_PATH}/logs
 mkdir -p ${OUT_PATH}/results
 
-for ri in ${N_RINGS_KEYS[@]}; do
+for rd in ${RADIUS_KEYS[@]}; do
     for l1 in ${L1_KEY[@]}; do
         for bs in ${BATCH_SIZE[@]}; do
             sleep 0.1
-                job_file="${OUT_PATH}/jobs/run_${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${LR_KEYS}_${l1}_${L2_KEYS}_${bs}_${ri}_${N_EVAL_KEYS}_${GS_KEY}.cmd"
+                job_file="${OUT_PATH}/jobs/run_${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${LR_KEYS}_${l1}_${L2_KEYS}_${bs}_${rd}_${N_EVAL_KEYS}_${GS_KEY}.cmd"
                 echo "#!/bin/bash
-#SBATCH -J ${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${LR_KEYS}_${l1}_${L2_KEYS}_${bs}_${ri}_${N_EVAL_KEYS}_${GS_KEY}
-#SBATCH -o ${OUT_PATH}/jobs/run_${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${LR_KEYS}_${l1}_${L2_KEYS}_${bs}_${ri}_${N_EVAL_KEYS}_${GS_KEY}.out
-#SBATCH -e ${OUT_PATH}/jobs/run_${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${LR_KEYS}_${l1}_${L2_KEYS}_${bs}_${ri}_${N_EVAL_KEYS}_${GS_KEY}.err
+#SBATCH -J ${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${LR_KEYS}_${l1}_${L2_KEYS}_${bs}_${rd}_${N_EVAL_KEYS}_${GS_KEY}
+#SBATCH -o ${OUT_PATH}/jobs/run_${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${LR_KEYS}_${l1}_${L2_KEYS}_${bs}_${rd}_${N_EVAL_KEYS}_${GS_KEY}.out
+#SBATCH -e ${OUT_PATH}/jobs/run_${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${LR_KEYS}_${l1}_${L2_KEYS}_${bs}_${rd}_${N_EVAL_KEYS}_${GS_KEY}.err
 #SBATCH -p gpu_p
 #SBATCH --qos=gpu
 #SBATCH --gres=gpu:1
@@ -53,11 +53,11 @@ for ri in ${N_RINGS_KEYS[@]}; do
 #SBATCH --mem=50G
 #SBATCH -c 4
 #SBATCH --nice=1000
-#SBATCH --nodelist=supergpu05
+#SBATCH --nodelist=supergpu02pxe
 
-source "$HOME"/.bashrc
+source ~/.bash_profile
 conda activate ncem
-python3 ${CODE_PATH}/ncem_benchmarks/scripts/train_script_linear.py ${DATA_SET} ${OPTIMIZER} ${DOMAIN_TYPE} ${LR_KEYS} ${l1} ${L2_KEYS} ${bs} ${ri} ${N_EVAL_KEYS} ${MODEL_CLASS} ${GS_KEY} ${DATA_PATH} ${OUT_PATH}
+python3 ${CODE_PATH}/ncem_benchmarks/scripts/train_script_linear.py ${DATA_SET} ${OPTIMIZER} ${DOMAIN_TYPE} ${LR_KEYS} ${l1} ${L2_KEYS} ${bs} ${rd} ${N_EVAL_KEYS} ${MODEL_CLASS} ${GS_KEY} ${DATA_PATH} ${OUT_PATH}
 " > ${job_file}
             sbatch $job_file
         done
