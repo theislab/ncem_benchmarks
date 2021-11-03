@@ -53,7 +53,7 @@ for rd in ${RADIUS_KEYS[@]}; do
 #SBATCH --mem=50G
 #SBATCH -c 4
 #SBATCH --nice=1000
-#SBATCH --nodelist=gpusrv12
+#SBATCH --nodelist=supergpu03pxe
 
 source "$HOME"/.bashrc
 conda activate ncem

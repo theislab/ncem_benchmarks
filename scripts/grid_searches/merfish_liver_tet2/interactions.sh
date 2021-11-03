@@ -19,8 +19,8 @@ DATA_SET="LUTET2"
 OPTIMIZER="ADAM"
 DOMAIN_TYPE="PATIENT"
 LR_KEYS=("1")
-L1_KEY=("1")
-L2_KEYS=("1")
+L1_KEY=("1" "3")
+L2_KEYS=("1+3+4+6+7+8")
 BATCH_SIZE=("S")
 RADIUS_KEYS=("0" "1" "2" "3" "4" "5" "6" "7" "8")
 N_EVAL_KEYS=("10")
@@ -53,7 +53,7 @@ for rd in ${RADIUS_KEYS[@]}; do
 #SBATCH --mem=50G
 #SBATCH -c 4
 #SBATCH --nice=1000
-#SBATCH --nodelist=supergpu02pxe
+#SBATCH --nodelist=supergpu05
 
 source ~/.bash_profile
 conda activate ncem
