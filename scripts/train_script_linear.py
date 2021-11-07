@@ -28,6 +28,7 @@ data_path_base = sys.argv[12]
 out_path = sys.argv[13]
 
 robustness_fit = None
+n_top_genes = None
 
 if data_set == 'zhang':
     data_path = data_path_base + '/zhang/'
@@ -188,6 +189,8 @@ elif data_set == 'lohoff':
     scale_node_size = False
     output_layer = 'linear'
 elif data_set.startswith('luwt'):
+    if data_set.endswith('imputation'):
+        n_top_genes = 4000
     data_path = data_path_base + '/lu/'
     use_domain = True
     merge_node_types_predefined = False
@@ -389,7 +392,8 @@ for learning_rate_key in learning_rate_keys.split("+"):
                     use_covar_node_label=use_covar_node_label,
                     use_covar_graph_covar=use_covar_graph_covar,
                     domain_type=domain_type,
-                    robustness=robustness_fit
+                    robustness=robustness_fit,
+                    n_top_genes=n_top_genes
                 )
                 trainer.estimator.split_data_node(
                     validation_split=0.1,
