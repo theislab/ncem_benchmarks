@@ -89,6 +89,90 @@ if data_set == 'lu':
     cellphoneDB = pd.read_csv(os.path.join(cellphoneDB_path, cellphoneDB_fn))
     target_feature_names = list(cellphoneDB['target'])
     neighbor_feature_names = list(cellphoneDB['source'])
+elif data_set == 'lu_imputation':
+    data_path = data_path_base + '/lu/'
+    use_domain = True
+    use_batch_norm = False
+    merge_node_types_predefined = True
+    covar_selection = []
+    radius_dict = {
+        "0": 0,
+        "1": 10,
+        "2": 25,
+        "3": 50,
+        "4": 100,
+        "5": 250,
+        "6": 500,
+        "7": 1000,
+        "8": 6000,
+    }
+    intermediate_dim_dict = {
+        "1": 4,
+        "2": 8,
+        "3": 16,
+        "4": 32,
+        "5": 64,
+        "6": 128
+    }
+    latent_dim_dict = {
+        "1": 12,
+        "2": 24,
+        "3": 48
+    }
+    log_transform = False
+    scale_node_size = False
+    output_layer = "gaussian"
+    pre_warm_up = 0
+    max_beta = 1.
+    beta = 0.02
+
+    cellphoneDB_path = '../notebooks/cellphoneDB/'
+    cellphoneDB_fn = 'merfish_fetal_liver_imputation_cellphoneDB.csv'
+    cellphoneDB = pd.read_csv(os.path.join(cellphoneDB_path, cellphoneDB_fn))
+    target_feature_names = list(cellphoneDB['target'])
+    neighbor_feature_names = list(cellphoneDB['source'])
+elif data_set == 'schuerch':
+    data_path = data_path_base + '/schuerch/'
+    use_domain = True
+    merge_node_types_predefined = True
+    covar_selection = ['Group']
+    radius_dict = {
+        "0": 0,
+        "1": 25,
+        "2": 50,
+        "3": 120,
+        "4": 500,
+        "5": 2000,
+        "6": 30,
+        "7": 35,
+        "8": 40,
+        "9": 45
+    }
+    intermediate_dim_dict = {
+        "1": 4,
+        "2": 8,
+        "3": 16,
+        "4": 32,
+        "5": 64,
+        "6": 128
+    }
+    latent_dim_dict = {
+        "1": 12,
+        "2": 24,
+        "3": 48
+    }
+    log_transform = True
+    scale_node_size = False
+    output_layer = "gaussian"
+    pre_warm_up = 0
+    max_beta = 1.
+    beta = 0.02
+
+    cellphoneDB_path = '../notebooks/cellphoneDB/'
+    cellphoneDB_fn = 'codex_cancer_cellphoneDB.csv'
+    cellphoneDB = pd.read_csv(os.path.join(cellphoneDB_path, cellphoneDB_fn))
+    target_feature_names = list(cellphoneDB['target'])
+    neighbor_feature_names = list(cellphoneDB['source'])
 else:
     raise ValueError('data_origin not recognized')
 
