@@ -32,6 +32,7 @@ class HyperparameterContainer:
             "4": 5
         }
         self.dropout = {
+            "0": 0.,
             "1": 0.05,
             "2": 0.1,
             "3": 0.2,
