@@ -84,7 +84,7 @@ if data_set == 'lu':
     max_beta = 1.
     beta = 0.02
 
-    cellphoneDB_path = '../notebooks/cellphoneDB/'
+    cellphoneDB_path = '/storage/groups/ml01/workspace/anna.schaar/ncem_benchmarks/notebooks/cellphoneDB/'
     cellphoneDB_fn = 'merfish_fetal_liver_cellphoneDB.csv'
     cellphoneDB = pd.read_csv(os.path.join(cellphoneDB_path, cellphoneDB_fn))
     target_feature_names = list(cellphoneDB['target'])
@@ -126,7 +126,7 @@ elif data_set == 'lu_imputation':
     max_beta = 1.
     beta = 0.02
 
-    cellphoneDB_path = '../notebooks/cellphoneDB/'
+    cellphoneDB_path = '/storage/groups/ml01/workspace/anna.schaar/ncem_benchmarks/notebooks/cellphoneDB/'
     cellphoneDB_fn = 'merfish_fetal_liver_imputation_cellphoneDB.csv'
     cellphoneDB = pd.read_csv(os.path.join(cellphoneDB_path, cellphoneDB_fn))
     target_feature_names = list(cellphoneDB['target'])
