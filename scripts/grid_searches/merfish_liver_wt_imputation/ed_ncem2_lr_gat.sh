@@ -15,7 +15,7 @@ SBATCH_NICE="1000"
 SBATCH_NODELIST="supergpu02pxe"
 
 MODEL_CLASS="ED_NCEM2"
-DATA_SET="LUWT"
+DATA_SET="luwt_imputation"
 COND_TYPE="LR_GAT"
 OPTIMIZER="ADAM"
 DOMAIN_TYPE="PATIENT"
@@ -77,7 +77,6 @@ for dr in ${DR_KEYS[@]}; do
 #SBATCH --mem=50G
 #SBATCH -c 4
 #SBATCH --nice=1000
-#SBATCH --nodelist=supergpu03pxe
 
 source "$HOME"/.bashrc
 conda activate ncem
