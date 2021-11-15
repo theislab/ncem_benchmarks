@@ -4,7 +4,7 @@ import time
 import tensorflow as tf
 
 import ncem
-from ncem_branchmarks import HyperparameterContainer, ConditionalHyperparameterContainer
+from ncem_benchmarks import HyperparameterContainer, ConditionalHyperparameterContainer
 
 print(tf.__version__)
 

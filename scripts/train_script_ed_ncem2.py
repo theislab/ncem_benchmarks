@@ -257,6 +257,9 @@ for ld in latent_dim_keys.split("+"):
                     'l2_coef': hpcontainer.l2_coef[l2_key],
                     'l1_coef': hpcontainer.l1_coef[l1_key],
 
+                    "cond_type": cond_type,
+                    "use_type_cond": use_type_cond,
+
                     "dec_intermediate_dim": intermediate_dim_dict[decoder_intermediate_dim_key],
                     "dec_n_hidden": hpcontainer.depth[decoder_depth_key],
                     "dec_dropout_rate": hpcontainer.dropout[dropout_rate_key],
