@@ -46,11 +46,11 @@ for rd in ${RADIUS_KEYS[@]}; do
 #SBATCH -J ${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${LR_KEYS}_${l1}_${L2_KEYS}_${bs}_${rd}_${N_EVAL_KEYS}_${GS_KEY}
 #SBATCH -o ${OUT_PATH}/jobs/run_${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${LR_KEYS}_${l1}_${L2_KEYS}_${bs}_${rd}_${N_EVAL_KEYS}_${GS_KEY}.out
 #SBATCH -e ${OUT_PATH}/jobs/run_${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${LR_KEYS}_${l1}_${L2_KEYS}_${bs}_${rd}_${N_EVAL_KEYS}_${GS_KEY}.err
-#SBATCH -p gpu_p
-#SBATCH --qos=gpu
+#SBATCH -p interactive_gpu_p
+#SBATCH --qos=interactive_gpu
 #SBATCH --gres=gpu:1
-#SBATCH -t 2-00:00:00
-#SBATCH --mem=50G
+#SBATCH -t 1-00:00:00
+#SBATCH --mem=20G
 #SBATCH -c 4
 #SBATCH --nice=0
 
