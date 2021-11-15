@@ -6,7 +6,7 @@ import pandas as pd
 import tensorflow as tf
 
 import ncem
-from ncem_branchmarks import HyperparameterContainer, ConditionalHyperparameterContainer
+from ncem_benchmarks import HyperparameterContainer, ConditionalHyperparameterContainer
 
 print(tf.__version__)
 
@@ -47,7 +47,7 @@ gs_id = sys.argv[23].lower()
 data_path_base = sys.argv[24]
 out_path = sys.argv[25]
 
-if data_set == 'lu':
+if data_set == 'luwt':
     data_path = data_path_base + '/lu/'
     use_domain = True
     use_batch_norm = False
@@ -84,12 +84,12 @@ if data_set == 'lu':
     max_beta = 1.
     beta = 0.02
 
-    cellphoneDB_path = '/storage/groups/ml01/workspace/anna.schaar/ncem_benchmarks/notebooks/cellphoneDB/'
+    cellphoneDB_path = '/home/icb/anna.schaar/git/ncem_benchmarks/notebooks/cellphoneDB/'
     cellphoneDB_fn = 'merfish_fetal_liver_cellphoneDB.csv'
     cellphoneDB = pd.read_csv(os.path.join(cellphoneDB_path, cellphoneDB_fn))
     target_feature_names = list(cellphoneDB['target'])
     neighbor_feature_names = list(cellphoneDB['source'])
-elif data_set == 'lu_imputation':
+elif data_set == 'luwt_imputation':
     data_path = data_path_base + '/lu/'
     use_domain = True
     use_batch_norm = False
@@ -126,7 +126,7 @@ elif data_set == 'lu_imputation':
     max_beta = 1.
     beta = 0.02
 
-    cellphoneDB_path = '/storage/groups/ml01/workspace/anna.schaar/ncem_benchmarks/notebooks/cellphoneDB/'
+    cellphoneDB_path = '/home/icb/anna.schaar/git/ncem_benchmarks/notebooks/cellphoneDB/'
     cellphoneDB_fn = 'merfish_fetal_liver_imputation_cellphoneDB.csv'
     cellphoneDB = pd.read_csv(os.path.join(cellphoneDB_path, cellphoneDB_fn))
     target_feature_names = list(cellphoneDB['target'])
