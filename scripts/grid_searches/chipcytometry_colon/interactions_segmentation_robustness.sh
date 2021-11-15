@@ -1,9 +1,9 @@
 #!/bin/bash
 
 CODE_PATH=$HOME/git
-OUT_PATH_BASE="."
+OUT_PATH_BASE="/storage/groups/ml01/workspace/anna.schaar/ncem"
 GS_PATH="${OUT_PATH_BASE}/grid_searches/"
-DATA_PATH="."
+DATA_PATH="/storage/groups/ml01/workspace/anna.schaar/ncem/data"
 
 SBATCH_P=""
 SBATCH_QOS=""
@@ -49,9 +49,9 @@ for rd in ${RADIUS_KEYS[@]}; do
 #SBATCH -p interactive_gpu_p
 #SBATCH --qos=interactive_gpu
 #SBATCH --gres=gpu:1
-#SBATCH -t 1-00:00:00
-#SBATCH --mem=20G
-#SBATCH -c 4
+#SBATCH -t 12:00:00
+#SBATCH --mem=16G
+#SBATCH -c 2
 #SBATCH --nice=0
 
 source "$HOME"/.bashrc

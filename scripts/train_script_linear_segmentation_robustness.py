@@ -187,7 +187,7 @@ for learning_rate_key in learning_rate_keys.split("+"):
                             domain_type=domain_type,
                             robustness=None,
                             n_top_genes=None,
-                            segmentation_robustness_node_fraction=[nf, of]
+                            segmentation_robustness=[nf, of]
                         )
                         trainer.estimator.split_data_node(
                             validation_split=0.1,
