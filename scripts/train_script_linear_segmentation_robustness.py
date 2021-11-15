@@ -113,7 +113,7 @@ for learning_rate_key in learning_rate_keys.split("+"):
                         'log_transform': log_transform,
 
                         'epochs': epochs,
-                        'batch_size': hpcontainer.batch_size[batch_size_key]
+                        'batch_size': hpcontainer.batch_size[batch_size_key],
 
                         'segmentation_robustness_node_fraction': nf,
                         'segmentation_robustness_overflow_fraction': of
