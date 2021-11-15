@@ -129,8 +129,8 @@ elif data_set == 'luwt_imputation':
     cellphoneDB_path = '/home/icb/anna.schaar/git/ncem_benchmarks/notebooks/cellphoneDB/'
     cellphoneDB_fn = 'merfish_fetal_liver_imputation_cellphoneDB.csv'
     cellphoneDB = pd.read_csv(os.path.join(cellphoneDB_path, cellphoneDB_fn))
-    target_feature_names = [x.lower for x in list(cellphoneDB['target'])]
-    neighbor_feature_names = [x.lower for x in list(cellphoneDB['source'])]
+    target_feature_names = [x.lower() for x in list(cellphoneDB['target'])]
+    neighbor_feature_names = [x.lower() for x in list(cellphoneDB['source'])]
 elif data_set == 'schuerch':
     data_path = data_path_base + '/schuerch/'
     use_domain = True
