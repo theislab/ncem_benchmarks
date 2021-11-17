@@ -131,6 +131,46 @@ elif data_set == 'luwt_imputation':
     cellphoneDB = pd.read_csv(os.path.join(cellphoneDB_path, cellphoneDB_fn))
     target_feature_names = [x.lower() for x in list(cellphoneDB['target'])]
     neighbor_feature_names = [x.lower() for x in list(cellphoneDB['source'])]
+elif data_set == 'jarosch':
+    data_path = data_path_base + '/jarosch/'
+    use_domain = True
+    merge_node_types_predefined = True
+    covar_selection = []
+    radius_dict = {
+        "0": 0,
+        "1": 10,
+        "2": 20,
+        "3": 40,
+        "4": 80,
+        "5": 200,
+        "6": 800,
+        "7": 5000
+    }
+    intermediate_dim_dict = {
+        "1": 4,
+        "2": 8,
+        "3": 16,
+        "4": 32,
+        "5": 64,
+        "6": 128
+    }
+    latent_dim_dict = {
+        "1": 4,
+        "2": 12,
+        "3": 24
+    }
+    log_transform = True
+    scale_node_size = False
+    output_layer = "gaussian"
+    pre_warm_up = 0
+    max_beta = 1.
+    beta = 0.02
+
+    cellphoneDB_path = '/home/icb/anna.schaar/git/ncem_benchmarks/notebooks/cellphoneDB/'
+    cellphoneDB_fn = 'chipcytometry_colon_cellphoneDB.csv'
+    cellphoneDB = pd.read_csv(os.path.join(cellphoneDB_path, cellphoneDB_fn))
+    target_feature_names = list(cellphoneDB['target'])
+    neighbor_feature_names = list(cellphoneDB['source'])
 elif data_set == 'schuerch':
     data_path = data_path_base + '/schuerch/'
     use_domain = True
