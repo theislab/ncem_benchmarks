@@ -146,6 +146,78 @@ elif data_set == 'hartmann':
     pre_warm_up = 100
     max_beta = 1.
     beta = 0.02
+elif data_set == 'luwt':
+    data_path = data_path_base + '/lu/'
+    use_domain = True
+    use_batch_norm = False
+    merge_node_types_predefined = True
+    covar_selection = []
+    radius_dict = {
+        "0": 0,
+        "1": 40,
+        "2": 70,
+        "3": 100,
+        "4": 180,
+        "5": 300,
+        "6": 500,
+        "7": 800,
+        "8": 2000,
+    }
+    intermediate_dim_dict = {
+        "1": 4,
+        "2": 8,
+        "3": 16,
+        "4": 32,
+        "5": 64,
+        "6": 128
+    }
+    latent_dim_dict = {
+        "1": 12,
+        "2": 24,
+        "3": 48
+    }
+    log_transform = False
+    scale_node_size = False
+    output_layer = "gaussian"
+    pre_warm_up = 0
+    max_beta = 1.
+    beta = 0.02
+elif data_set == 'luwt_imputation':
+    data_path = data_path_base + '/lu/'
+    use_domain = True
+    use_batch_norm = False
+    merge_node_types_predefined = True
+    covar_selection = []
+    radius_dict = {
+        "0": 0,
+        "1": 40,
+        "2": 70,
+        "3": 100,
+        "4": 180,
+        "5": 300,
+        "6": 500,
+        "7": 800,
+        "8": 2000,
+    }
+    intermediate_dim_dict = {
+        "1": 4,
+        "2": 8,
+        "3": 16,
+        "4": 32,
+        "5": 64,
+        "6": 128
+    }
+    latent_dim_dict = {
+        "1": 12,
+        "2": 24,
+        "3": 48
+    }
+    log_transform = False
+    scale_node_size = False
+    output_layer = "gaussian"
+    pre_warm_up = 0
+    max_beta = 1.
+    beta = 0.02
 else:
     raise ValueError('data_origin not recognized')
 
