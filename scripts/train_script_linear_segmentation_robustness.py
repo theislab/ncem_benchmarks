@@ -2,6 +2,7 @@ import pickle
 import sys
 import time
 import tensorflow as tf
+import numpy as np
 
 import ncem
 from ncem_benchmarks import HyperparameterContainer
@@ -163,6 +164,7 @@ for learning_rate_key in learning_rate_keys.split("+"):
 
                     for i in range(ncv):
                         t0 = time.time()
+                        np.random.seed(ncv)
                         model_id_cv = model_id + "_cv" + str(i)
                         fn_tensorboard_cv = None  # out_path + "/logs/" + model_id_cv
                         fn_out_cv = out_path + "/results/" + model_id_cv
