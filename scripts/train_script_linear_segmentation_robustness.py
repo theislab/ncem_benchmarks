@@ -49,8 +49,8 @@ if data_set == 'jarosch':
     log_transform = True
     scale_node_size = False
     output_layer = 'linear'
-    segmentation_robustness_node_fraction = [0.1, 0.5]
-    segmentation_robustness_overflow_fraction = [0., 0.05, 0.1, 0.5]
+    segmentation_robustness_node_fraction = [0.1, 0.5, 0.25]
+    segmentation_robustness_overflow_fraction = [0., 0.05, 0.1, 0.5, 0.75]
 else:
     raise ValueError('data_origin not recognized')
 
