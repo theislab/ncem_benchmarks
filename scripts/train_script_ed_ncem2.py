@@ -134,6 +134,7 @@ elif data_set == 'luwt_imputation':
 elif data_set == 'jarosch':
     data_path = data_path_base + '/jarosch/'
     use_domain = True
+    use_batch_norm = False
     merge_node_types_predefined = True
     covar_selection = []
     radius_dict = {
@@ -174,6 +175,7 @@ elif data_set == 'jarosch':
 elif data_set == 'schuerch':
     data_path = data_path_base + '/schuerch/'
     use_domain = True
+    use_batch_norm = False
     merge_node_types_predefined = True
     covar_selection = ['Group']
     radius_dict = {
