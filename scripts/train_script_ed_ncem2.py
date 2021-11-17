@@ -138,15 +138,9 @@ elif data_set == 'schuerch':
     covar_selection = ['Group']
     radius_dict = {
         "0": 0,
-        "1": 25,
-        "2": 50,
-        "3": 120,
-        "4": 500,
-        "5": 2000,
-        "6": 30,
-        "7": 35,
-        "8": 40,
-        "9": 45
+        "1": 50,
+        "2": 120,
+        "3": 2000,
     }
     intermediate_dim_dict = {
         "1": 4,
@@ -168,7 +162,7 @@ elif data_set == 'schuerch':
     max_beta = 1.
     beta = 0.02
 
-    cellphoneDB_path = '../notebooks/cellphoneDB/'
+    cellphoneDB_path = '/home/icb/anna.schaar/git/ncem_benchmarks/notebooks/cellphoneDB/'
     cellphoneDB_fn = 'codex_cancer_cellphoneDB.csv'
     cellphoneDB = pd.read_csv(os.path.join(cellphoneDB_path, cellphoneDB_fn))
     target_feature_names = list(cellphoneDB['target'])
