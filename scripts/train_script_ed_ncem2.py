@@ -55,14 +55,14 @@ if data_set == 'luwt':
     covar_selection = []
     radius_dict = {
         "0": 0,
-        "1": 10,
-        "2": 25,
-        "3": 50,
-        "4": 100,
-        "5": 250,
+        "1": 40,
+        "2": 70,
+        "3": 100,
+        "4": 180,
+        "5": 300,
         "6": 500,
-        "7": 1000,
-        "8": 6000,
+        "7": 800,
+        "8": 2000,
     }
     intermediate_dim_dict = {
         "1": 4,
@@ -97,14 +97,14 @@ elif data_set == 'luwt_imputation':
     covar_selection = []
     radius_dict = {
         "0": 0,
-        "1": 10,
-        "2": 25,
-        "3": 50,
-        "4": 100,
-        "5": 250,
+        "1": 40,
+        "2": 70,
+        "3": 100,
+        "4": 180,
+        "5": 300,
         "6": 500,
-        "7": 1000,
-        "8": 6000,
+        "7": 800,
+        "8": 2000,
     }
     intermediate_dim_dict = {
         "1": 4,
@@ -127,7 +127,7 @@ elif data_set == 'luwt_imputation':
     beta = 0.02
 
     cellphoneDB_path = '/home/icb/anna.schaar/git/ncem_benchmarks/notebooks/cellphoneDB/'
-    cellphoneDB_fn = 'merfish_fetal_liver_imputation_cellphoneDB.csv'
+    cellphoneDB_fn = 'merfish_fetal_liver_imputation_cellphoneDB_all.csv'
     cellphoneDB = pd.read_csv(os.path.join(cellphoneDB_path, cellphoneDB_fn))
     target_feature_names = [x.lower() for x in list(cellphoneDB['target'])]
     neighbor_feature_names = [x.lower() for x in list(cellphoneDB['source'])]
