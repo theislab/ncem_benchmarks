@@ -47,7 +47,7 @@ for rd in ${RADIUS_KEYS[@]}; do
 
 source "$HOME"/.bashrc
 conda activate ncem
-python3 ${CODE_PATH}/ncem_benchmarks/scripts/train_script_linear.py ${DATA_SET} ${OPTIMIZER} ${DOMAIN_TYPE} ${LR_KEYS} ${l1} ${L2_KEYS} ${bs} ${rd} ${N_EVAL_KEYS} ${MODEL_CLASS} ${GS_KEY} ${DATA_PATH} ${OUT_PATH}
+python3 ${CODE_PATH}/ncem_benchmarks/scripts/train_script_linear_segmentation_robustness.py ${DATA_SET} ${OPTIMIZER} ${DOMAIN_TYPE} ${LR_KEYS} ${l1} ${L2_KEYS} ${bs} ${rd} ${N_EVAL_KEYS} ${MODEL_CLASS} ${GS_KEY} ${DATA_PATH} ${OUT_PATH}
 " > ${job_file}
             sbatch $job_file
         done
