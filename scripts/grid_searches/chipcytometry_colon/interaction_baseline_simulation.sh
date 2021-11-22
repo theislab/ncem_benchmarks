@@ -1,31 +1,22 @@
 #!/bin/bash
 
 CODE_PATH=$HOME/git
-OUT_PATH_BASE="/storage/groups/ml01/workspace/anna.schaar/ncem"
+OUT_PATH_BASE="/storage/groups/ml01/workspace/${USER}/ncem"
 GS_PATH="${OUT_PATH_BASE}/grid_searches/"
-DATA_PATH="/storage/groups/ml01/workspace/anna.schaar/ncem/data"
+DATA_PATH="/storage/groups/ml01/workspace/${USER}/tissue/data"
 
-SBATCH_P=""
-SBATCH_QOS=""
-SBATCH_GRES=""
-SBATCH_TIME=""
-SBATCH_MEM=""
-SBATCH_C=""
-SBATCH_NICE=""
-SBATCH_EXCLUDE=""
-
-MODEL_CLASS="INTERACTIONS"
-DATA_SET="JAROSCH"
+MODEL_CLASS="INTERACTIONS_BASELINE"
+DATA_SET="jarosch_simulation"
 OPTIMIZER="ADAM"
 DOMAIN_TYPE="PATIENT"
 LR_KEYS=("1")
-L1_KEY=("1" "4" "6")
-L2_KEYS=("1+4+6")
+L1_KEY=("1")
+L2_KEYS=("1")
 BATCH_SIZE=("S")
-RADIUS_KEYS=("5")
+RADIUS_KEYS=("0")
 N_EVAL_KEYS=("100")
 
-GS_KEY="$(date '+%y%m%d')b_${MODEL_CLASS}_${DOMAIN_TYPE}_${DATA_SET}"
+GS_KEY="$(date '+%y%m%d')_${MODEL_CLASS}_${DOMAIN_TYPE}_${DATA_SET}"
 OUT_PATH=${GS_PATH}/${GS_KEY}
 
 # dummy values for this model class have hard-encoded default values in this grid search
@@ -56,7 +47,7 @@ for rd in ${RADIUS_KEYS[@]}; do
 
 source "$HOME"/.bashrc
 conda activate ncem
-python3 ${CODE_PATH}/ncem_benchmarks/scripts/train_script_linear_segmentation_robustness.py ${DATA_SET} ${OPTIMIZER} ${DOMAIN_TYPE} ${LR_KEYS} ${l1} ${L2_KEYS} ${bs} ${rd} ${N_EVAL_KEYS} ${MODEL_CLASS} ${GS_KEY} ${DATA_PATH} ${OUT_PATH}
+python3 ${CODE_PATH}/ncem_benchmarks/scripts/train_script_linear.py ${DATA_SET} ${OPTIMIZER} ${DOMAIN_TYPE} ${LR_KEYS} ${l1} ${L2_KEYS} ${bs} ${rd} ${N_EVAL_KEYS} ${MODEL_CLASS} ${GS_KEY} ${DATA_PATH} ${OUT_PATH}
 " > ${job_file}
             sbatch $job_file
         done

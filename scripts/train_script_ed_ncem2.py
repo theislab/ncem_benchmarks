@@ -127,7 +127,7 @@ elif data_set == 'luwt_imputation':
     beta = 0.02
 
     cellphoneDB_path = '/home/icb/anna.schaar/git/ncem_benchmarks/notebooks/cellphoneDB/'
-    cellphoneDB_fn = 'merfish_fetal_liver_imputation_cellphoneDB_all.csv'
+    cellphoneDB_fn = 'merfish_fetal_liver_imputation_cellphoneDB.csv'
     cellphoneDB = pd.read_csv(os.path.join(cellphoneDB_path, cellphoneDB_fn))
     target_feature_names = [x.lower() for x in list(cellphoneDB['target'])]
     neighbor_feature_names = [x.lower() for x in list(cellphoneDB['source'])]
