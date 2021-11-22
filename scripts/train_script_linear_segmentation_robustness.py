@@ -80,7 +80,6 @@ elif data_set == 'jarosch_simulation':
     segmentation_robustness_overflow_fraction = [None]
     resimulate_nodes = True
     resimulate_nodes_w_depdency = [False, True]
->>>>>>> f59d83b66408cb1437c070316b97626dbcffb465
 else:
     raise ValueError('data_origin not recognized')
 

@@ -3,7 +3,7 @@
 CODE_PATH=$HOME/git
 OUT_PATH_BASE="/storage/groups/ml01/workspace/${USER}/ncem"
 GS_PATH="${OUT_PATH_BASE}/grid_searches/"
-DATA_PATH="/storage/groups/ml01/workspace/${USER}/tissue/data"
+DATA_PATH="/storage/groups/ml01/workspace/${USER}/ncem/data"
 
 MODEL_CLASS="INTERACTIONS_BASELINE"
 DATA_SET="jarosch_simulation"
