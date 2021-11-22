@@ -208,6 +208,10 @@ for learning_rate_key in learning_rate_keys.split("+"):
                             else:
                                 raise ValueError("model_class %s not recognized" % model_class)
                             trainer.init_estim(**kwargs_estim_init)
+                            if nf is None:
+                                segmentation_robustness = None
+                            else:
+                                segmentation_robustness = [nf, of]
                             trainer.estimator.get_data(
                                 data_origin=data_set,
                                 data_path=data_path,
@@ -222,7 +226,7 @@ for learning_rate_key in learning_rate_keys.split("+"):
                                 domain_type=domain_type,
                                 robustness=None,
                                 n_top_genes=None,
-                                segmentation_robustness=[nf, of],
+                                segmentation_robustness=segmentation_robustness,
                                 resimulate_nodes=resimulate_nodes,
                                 resimulate_nodes_w_depdency=sim
                             )
