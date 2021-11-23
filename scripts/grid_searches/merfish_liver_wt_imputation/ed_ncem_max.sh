@@ -1,18 +1,9 @@
 #!/bin/bash
 
 CODE_PATH=$HOME/git
-OUT_PATH_BASE="."
+OUT_PATH_BASE="/storage/groups/ml01/workspace/${USER}/ncem"
 GS_PATH="${OUT_PATH_BASE}/grid_searches/"
-DATA_PATH="."
-
-SBATCH_P=""
-SBATCH_QOS=""
-SBATCH_GRES=""
-SBATCH_TIME=""
-SBATCH_MEM=""
-SBATCH_C=""
-SBATCH_NICE=""
-SBATCH_EXCLUDE=""
+DATA_PATH="/storage/groups/ml01/workspace/${USER}/ncem/data"
 
 MODEL_CLASS="ED_NCEM"
 DATA_SET="luwt_imputation"
@@ -70,14 +61,13 @@ for dr in ${DR_KEYS[@]}; do
 #SBATCH -J ${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${COND_TYPE}_${LR_KEYS}_${LAT_DIM_KEYS}_${dr}_${l1}_${L2_KEYS}_${eid}_${ede}_${did}_${dde}_${cde}_${cdi}_${cdr}_${cl2}_${bs}_${rd}_${N_EVAL_KEYS}_${USE_TYPE_COND}_${GS_KEY}
 #SBATCH -o ${OUT_PATH}/jobs/run_${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${COND_TYPE}_${LR_KEYS}_${LAT_DIM_KEYS}_${dr}_${l1}_${L2_KEYS}_${eid}_${ede}_${did}_${dde}_${cde}_${cdi}_${cdr}_${cl2}_${bs}_${rd}_${N_EVAL_KEYS}_${USE_TYPE_COND}_${GS_KEY}.out
 #SBATCH -e ${OUT_PATH}/jobs/run_${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${COND_TYPE}_${LR_KEYS}_${LAT_DIM_KEYS}_${dr}_${l1}_${L2_KEYS}_${eid}_${ede}_${did}_${dde}_${cde}_${cdi}_${cdr}_${cl2}_${bs}_${rd}_${N_EVAL_KEYS}_${USE_TYPE_COND}_${GS_KEY}.err
-#SBATCH -p ${SBATCH_P}
-#SBATCH -q ${SBATCH_QOS}
-#SBATCH --gres=${SBATCH_GRES}
-#SBATCH -t ${SBATCH_TIME}
-#SBATCH --mem=${SBATCH_MEM}
-#SBATCH -c ${SBATCH_C}
-#SBATCH --nice=${SBATCH_NICE}
-#SBATCH --exclude=${SBATCH_EXCLUDE}
+#SBATCH -p gpu_p
+#SBATCH --qos=gpu
+#SBATCH --gres=gpu:1
+#SBATCH -t 2-00:00:00
+#SBATCH --mem=50G
+#SBATCH -c 4
+#SBATCH --nice=0
 
 source "$HOME"/.bashrc
 conda activate ncem
