@@ -208,7 +208,7 @@ for ld in latent_dim_keys.split("+"):
         for l2_key in l2_keys.split("+"):
             for n_key in n_eval_nodes_keys.split("+"):
                 # Set ID of output:
-                model_id_base = f"{gs_id}_{optimizer}_lr{str(lr)}" \
+                model_id_base = f"{gs_id}_{optimizer}_lr{str(learning_rate_key)}" \
                                 f"_bs{str(batch_size_key)}_md{str(radius_key)}_n{str(n_key)}" \
                                 f"_fs{str(feature_space_id)}_l2{str(l2_key)}_l1{str(l1_key)}"
                 model_id_ed = f"_ldi{str(ld)}_ei{str(encoder_intermediate_dim_key)}_" \
