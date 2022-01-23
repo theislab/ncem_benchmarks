@@ -6,7 +6,7 @@ GS_PATH="${OUT_PATH_BASE}/grid_searches/"
 DATA_PATH="/storage/groups/ml01/workspace/${USER}/ncem/data"
 
 MODEL_CLASS="DECONVOLUTION"
-DATA_SET="destvi_lympnode"
+DATA_SET="destvi_lymphnode"
 OPTIMIZER="ADAM"
 DOMAIN_TYPE="PATIENT"
 LR_KEYS=("1")
