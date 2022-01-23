@@ -263,6 +263,33 @@ elif data_set == '10xvisium':
     log_transform = False
     scale_node_size = False
     output_layer = 'linear'
+elif data_set == "destvi_lymphnode":
+    data_path = data_path_base + '/destvi_lymphnode/'
+    use_domain = True
+    merge_node_types_predefined = False
+    covar_selection = []
+    n_rings_key = radius_key
+    radius_dict = {
+        "0": 0
+    }
+    radius_key = "0"
+    n_rings_dict = {
+        "0": 0,
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 4,
+        "5": 5,
+        "6": 6,
+        "10": 10,
+        "20": 20,
+        "50": 50,
+        "100": 100,
+        "200": 200
+    }
+    log_transform = False
+    scale_node_size = False
+    output_layer = 'linear'
 else:
     raise ValueError('data_origin not recognized')
 
@@ -345,6 +372,14 @@ for learning_rate_key in learning_rate_keys.split("+"):
                 kwargs_model_init = {
                     "use_interactions": True
                 }
+            elif model_class == "deconvolution":
+                kwargs_model_init = {
+                    "use_proportions": True
+                }
+            elif model_class == "deconvolution_baseline":
+                kwargs_model_init = {
+                    "use_proportions": False
+                }
             else:
                 raise ValueError("model_class %s not recognized" % model_class)
             kwargs_model_init.update({
@@ -377,6 +412,8 @@ for learning_rate_key in learning_rate_keys.split("+"):
                     trainer = ncem.train.TrainModelInteractions()
                 elif model_class in ["linear", "linear_baseline"]:
                     trainer = ncem.train.TrainModelLinear()
+                elif model_class in ["deconvolution", "deconvolution_baseline"]:
+                    trainer = ncem.train.TrainModelLinearDeconvolution()
                 else:
                     raise ValueError("model_class %s not recognized" % model_class)
                 trainer.init_estim(**kwargs_estim_init)
