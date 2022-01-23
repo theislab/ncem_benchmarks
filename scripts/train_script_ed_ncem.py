@@ -218,6 +218,49 @@ elif data_set == 'luwt_imputation':
     pre_warm_up = 0
     max_beta = 1.
     beta = 0.02
+elif data_set == 'destvi_lymphnode':
+    data_path = data_path_base + '/destvi_lymphnode/'
+    use_domain = False
+    merge_node_types_predefined = False
+    covar_selection = []
+    n_rings_key = radius_key
+    radius_dict = {
+        "0": 0
+    }
+    radius_key = "0"
+    intermediate_dim_dict = {
+        "1": 6,
+        "2": 12,
+        "3": 24,
+        "4": 48,
+        "5": 96,
+        "6": 192
+    }
+    latent_dim_dict = {
+        "1": 12,
+        "2": 24,
+        "3": 48
+    }
+    n_rings_dict = {
+        "0": 0,
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 4,
+        "5": 5,
+        "6": 6,
+        "10": 10,
+        "20": 20,
+        "50": 50,
+        "100": 100,
+        "200": 200
+    }
+    log_transform = False
+    scale_node_size = False
+    output_layer = "gaussian"
+    pre_warm_up = 0
+    max_beta = 1.
+    beta = 0.02
 else:
     raise ValueError('data_origin not recognized')
 
@@ -345,6 +388,7 @@ for ld in latent_dim_keys.split("+"):
                         data_origin=data_set,
                         data_path=data_path,
                         radius=radius_dict[radius_key],
+                        n_rings=n_rings_dict[n_rings_key],
                         graph_covar_selection=covar_selection,
                         node_label_space_id=cond_feature_space_id,
                         node_feature_space_id=feature_space_id,

@@ -185,16 +185,9 @@ elif data_set == 'destvi_lymphnode':
     covar_selection = []
     n_rings_key = radius_key
     radius_dict = {
-        "0": 0,
-        "1": 40,
-        "2": 70,
-        "3": 100,
-        "4": 180,
-        "5": 300,
-        "6": 500,
-        "7": 800,
-        "8": 2000,
+        "0": 0
     }
+    radius_key = "0"
     intermediate_dim_dict = {
         "1": 6,
         "2": 12,
@@ -208,7 +201,6 @@ elif data_set == 'destvi_lymphnode':
         "2": 24,
         "3": 48
     }
-    radius_key = "0"
     n_rings_dict = {
         "0": 0,
         "1": 1,
@@ -345,6 +337,7 @@ for ld in latent_dim_keys.split("+"):
                         data_origin=data_set,
                         data_path=data_path,
                         radius=radius_dict[radius_key],
+                        n_rings=n_rings_dict[n_rings_key],
                         graph_covar_selection=covar_selection,
                         node_label_space_id=cond_feature_space_id,
                         node_feature_space_id=feature_space_id,
