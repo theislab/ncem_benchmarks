@@ -25,7 +25,7 @@ BATCH_SIZE=("S")
 RADIUS_KEYS=("5")
 N_EVAL_KEYS=("100")
 
-GS_KEY="$(date '+%y%m%d')_${MODEL_CLASS}_${DOMAIN_TYPE}_${DATA_SET}"
+GS_KEY="$(date '+%y%m%d')b_${MODEL_CLASS}_${DOMAIN_TYPE}_${DATA_SET}"
 OUT_PATH=${GS_PATH}/${GS_KEY}
 
 # dummy values for this model class have hard-encoded default values in this grid search

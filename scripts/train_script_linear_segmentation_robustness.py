@@ -50,8 +50,8 @@ if data_set == 'jarosch':
     log_transform = True
     scale_node_size = False
     output_layer = 'linear'
-    segmentation_robustness_node_fraction = [0.1, 0.5]
-    segmentation_robustness_overflow_fraction = [0., 0.05, 0.1, 0.5]
+    segmentation_robustness_node_fraction = [0.1, 0.5, 0.25]
+    segmentation_robustness_overflow_fraction = [0., 0.05, 0.1, 0.5, 0.75]
     resimulate_nodes = False
     resimulate_nodes_w_depdency = [False]
 elif data_set == 'jarosch_simulation':
@@ -73,12 +73,12 @@ elif data_set == 'jarosch_simulation':
         "0": 1
     }
     n_rings_key = "0"
-    log_transform = True
+    log_transform = False
     scale_node_size = False
     output_layer = 'linear'
     segmentation_robustness_node_fraction = [None]
     segmentation_robustness_overflow_fraction = [None]
-    resimulate_nodes = True
+    resimulate_nodes = True=
     resimulate_nodes_w_depdency = [False, True]
     resimulate_nodes_sparsity_rate = [0.5, 0.8]
 else:

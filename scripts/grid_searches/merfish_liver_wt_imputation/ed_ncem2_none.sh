@@ -70,12 +70,12 @@ for dr in ${DR_KEYS[@]}; do
 #SBATCH -J ${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${COND_TYPE}_${LR_KEYS}_${LAT_DIM_KEYS}_${dr}_${l1}_${L2_KEYS}_${eid}_${ede}_${did}_${dde}_${cde}_${cdi}_${cdr}_${cl2}_${bs}_${rd}_${N_EVAL_KEYS}_${USE_TYPE_COND}_${GS_KEY}
 #SBATCH -o ${OUT_PATH}/jobs/run_${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${COND_TYPE}_${LR_KEYS}_${LAT_DIM_KEYS}_${dr}_${l1}_${L2_KEYS}_${eid}_${ede}_${did}_${dde}_${cde}_${cdi}_${cdr}_${cl2}_${bs}_${rd}_${N_EVAL_KEYS}_${USE_TYPE_COND}_${GS_KEY}.out
 #SBATCH -e ${OUT_PATH}/jobs/run_${MODEL_CLASS}_${DATA_SET}_${OPTIMIZER}_${COND_TYPE}_${LR_KEYS}_${LAT_DIM_KEYS}_${dr}_${l1}_${L2_KEYS}_${eid}_${ede}_${did}_${dde}_${cde}_${cdi}_${cdr}_${cl2}_${bs}_${rd}_${N_EVAL_KEYS}_${USE_TYPE_COND}_${GS_KEY}.err
-#SBATCH -p interactive_gpu_p
-#SBATCH --qos=interactive_gpu
+#SBATCH -p gpu_p
+#SBATCH --qos=gpu
 #SBATCH --gres=gpu:1
-#SBATCH -t 12:00:00
-#SBATCH --mem=16G
-#SBATCH -c 2
+#SBATCH -t 2-00:00:00
+#SBATCH --mem=50G
+#SBATCH -c 4
 #SBATCH --nice=0
 
 source "$HOME"/.bashrc
