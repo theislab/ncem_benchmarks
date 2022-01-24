@@ -188,19 +188,6 @@ elif data_set == 'destvi_lymphnode':
         "0": 0
     }
     radius_key = "0"
-    intermediate_dim_dict = {
-        "1": 6,
-        "2": 12,
-        "3": 24,
-        "4": 48,
-        "5": 96,
-        "6": 192
-    }
-    latent_dim_dict = {
-        "1": 12,
-        "2": 24,
-        "3": 48
-    }
     n_rings_dict = {
         "0": 0,
         "1": 1,
@@ -214,6 +201,19 @@ elif data_set == 'destvi_lymphnode':
         "50": 50,
         "100": 100,
         "200": 200
+    }
+    intermediate_dim_dict = {
+        "1": 6,
+        "2": 12,
+        "3": 24,
+        "4": 48,
+        "5": 96,
+        "6": 192
+    }
+    latent_dim_dict = {
+        "1": 12,
+        "2": 24,
+        "3": 48
     }
     log_transform = False
     scale_node_size = False
@@ -254,7 +254,7 @@ for ld in latent_dim_keys.split("+"):
             for n_key in n_eval_nodes_keys.split("+"):
                 # Set ID of output:
                 model_id_base = f"{gs_id}_{optimizer}_lr{str(learning_rate_key)}" \
-                                f"_bs{str(batch_size_key)}_md{str(radius_key)}_n{str(n_key)}" \
+                                f"_bs{str(batch_size_key)}_md{str(radius_key)}_ri{str(n_rings_key)}_n{str(n_key)}" \
                                 f"_fs{str(feature_space_id)}_l2{str(l2_key)}_l1{str(l1_key)}"
                 model_id_ed = f"_ldi{str(ld)}_ei{str(encoder_intermediate_dim_key)}_" \
                               f"di{str(decoder_intermediate_dim_key)}_ede{str(encoder_depth_key)}_" \
@@ -268,6 +268,7 @@ for ld in latent_dim_keys.split("+"):
 
                     'data_set': data_set,
                     'radius': radius_dict[radius_key],
+                    'n_rings': n_rings_dict[n_rings_key],
                     'graph_covar_selection': covar_selection,
                     'node_label_space_id': cond_feature_space_id,
                     'node_feature_space_id': feature_space_id,
@@ -333,6 +334,7 @@ for ld in latent_dim_keys.split("+"):
                     fn_out_cv = out_path + "/results/" + model_id_cv
                     trainer = ncem.train.TrainModelED()
                     trainer.init_estim(**kwargs_estim_init)
+                    print('n_rings_dict[n_rings_key]', n_rings_dict[n_rings_key])
                     trainer.estimator.get_data(
                         data_origin=data_set,
                         data_path=data_path,
@@ -345,6 +347,8 @@ for ld in latent_dim_keys.split("+"):
                         use_covar_node_label=use_covar_node_label,
                         use_covar_graph_covar=use_covar_graph_covar,
                         domain_type=domain_type,
+                        # robustness=robustness_fit,
+                        # n_top_genes=n_top_genes
                     )
                     trainer.estimator.split_data_node(
                         validation_split=0.1,
