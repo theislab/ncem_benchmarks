@@ -263,7 +263,7 @@ elif data_set == '10xvisium':
     log_transform = False
     scale_node_size = False
     output_layer = 'linear'
-elif data_set == "destvi_lymphnode":
+elif data_set.startswith("destvi_lymphnode"):
     data_path = data_path_base + '/destvi_lymphnode/'
     use_domain = True
     merge_node_types_predefined = False
