@@ -264,7 +264,10 @@ elif data_set == '10xvisium':
     scale_node_size = False
     output_layer = 'linear'
 elif data_set.startswith("destvi_lymphnode"):
-    data_path = data_path_base + '/destvi_lymphnode/'
+    if data_set.endswith("gamma"):
+        data_path = data_path_base + '/destvi_lymphnode_gamma/'
+    else:
+        data_path = data_path_base + '/destvi_lymphnode/'
     use_domain = True
     merge_node_types_predefined = False
     covar_selection = []
