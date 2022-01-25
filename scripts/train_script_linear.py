@@ -293,6 +293,36 @@ elif data_set.startswith("destvi_lymphnode"):
     log_transform = False
     scale_node_size = False
     output_layer = 'linear'
+elif data_set.startswith("destvi_mousebrain"):
+    if data_set.endswith("gamma"):
+        data_path = data_path_base + '/destvi_gamma/'
+    else:
+        data_path = data_path_base + '/destvi/'
+    use_domain = True
+    merge_node_types_predefined = False
+    covar_selection = []
+    n_rings_key = radius_key
+    radius_dict = {
+        "0": 0
+    }
+    radius_key = "0"
+    n_rings_dict = {
+        "0": 0,
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 4,
+        "5": 5,
+        "6": 6,
+        "10": 10,
+        "20": 20,
+        "50": 50,
+        "100": 100,
+        "200": 200
+    }
+    log_transform = False
+    scale_node_size = False
+    output_layer = 'linear'
 else:
     raise ValueError('data_origin not recognized')
 
