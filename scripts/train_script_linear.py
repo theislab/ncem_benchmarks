@@ -407,11 +407,11 @@ for learning_rate_key in learning_rate_keys.split("+"):
                 }
             elif model_class == "deconvolution":
                 kwargs_model_init = {
-                    "use_proportions": True
+                    "use_interactions": True
                 }
             elif model_class == "deconvolution_baseline":
                 kwargs_model_init = {
-                    "use_proportions": False
+                    "use_interactions": False
                 }
             else:
                 raise ValueError("model_class %s not recognized" % model_class)
