@@ -223,25 +223,54 @@ elif data_set == 'destvi_lymphnode':
     use_domain = False
     merge_node_types_predefined = False
     covar_selection = []
-    n_rings_key = radius_key
     radius_dict = {
-        "0": 0
-    }
-    radius_key = "0"
-    n_rings_dict = {
         "0": 0,
-        "1": 1,
-        "2": 2,
-        "3": 3,
-        "4": 4,
-        "5": 5,
-        "6": 6,
-        "10": 10,
-        "20": 20,
-        "50": 50,
-        "100": 100,
-        "200": 200
+        "1": 55,
+        "2": 110,
+        "5": 275,
+        "10": 550,
+        "100": 5500
     }
+    n_rings_dict = {
+        "0": 1
+    }
+    n_rings_key = "0"
+    intermediate_dim_dict = {
+        "1": 6,
+        "2": 12,
+        "3": 24,
+        "4": 48,
+        "5": 96,
+        "6": 192
+    }
+    latent_dim_dict = {
+        "1": 12,
+        "2": 24,
+        "3": 48
+    }
+    log_transform = False
+    scale_node_size = False
+    output_layer = "gaussian"
+    pre_warm_up = 0
+    max_beta = 1.
+    beta = 0.02
+elif data_set == 'destvi_mousebrain':
+    data_path = data_path_base + '/destvi/'
+    use_domain = False
+    merge_node_types_predefined = False
+    covar_selection = []
+    radius_dict = {
+        "0": 0,
+        "1": 55,
+        "2": 110,
+        "5": 275,
+        "10": 550,
+        "100": 5500
+    }
+    n_rings_dict = {
+        "0": 1
+    }
+    n_rings_key = "0"
     intermediate_dim_dict = {
         "1": 6,
         "2": 12,
@@ -278,7 +307,7 @@ epochs_warmup = 0
 
 feature_space_id = "standard"
 cond_feature_space_id = "type"
-if data_set == "destvi_lymphnode":
+if data_set.startswith("destvi"):
     cond_feature_space_id = "proportions"
 
 use_covar_node_label = True
