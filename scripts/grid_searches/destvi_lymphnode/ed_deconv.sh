@@ -6,11 +6,11 @@ GS_PATH="${OUT_PATH_BASE}/grid_searches/"
 DATA_PATH="/storage/groups/ml01/workspace/${USER}/ncem/data"
 
 MODEL_CLASS="ED"
-DATA_SET="destvi_lymphnode"
+DATA_SET="10xvisium_lymphnode"
 OPTIMIZER="ADAM"
 DOMAIN_TYPE="PATIENT"
 LR_KEYS=("1")
-LAT_DIM_KEYS=("1+2+3")
+LAT_DIM_KEYS=("2+3")
 DR_KEYS=("1")
 L1_KEY=("1")
 L2_KEYS=("2")

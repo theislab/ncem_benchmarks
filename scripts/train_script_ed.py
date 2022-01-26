@@ -178,23 +178,30 @@ elif data_set == 'luwt_imputation':
     pre_warm_up = 0
     max_beta = 1.
     beta = 0.02
-elif data_set == 'destvi_lymphnode':
-    data_path = data_path_base + '/destvi_lymphnode/'
+elif data_set == '10xvisium_lymphnode':
+    data_path = data_path_base + '/destvi_spot/'
     use_domain = False
     merge_node_types_predefined = False
     covar_selection = []
+    n_rings_key = radius_key
     radius_dict = {
-        "0": 0,
-        "1": 55,
-        "2": 110,
-        "5": 275,
-        "10": 550,
-        "100": 5500
+        "0": 0
     }
+    radius_key = "0"
     n_rings_dict = {
-        "0": 1
+        "0": 0,
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 4,
+        "5": 5,
+        "6": 6,
+        "10": 10,
+        "20": 20,
+        "50": 50,
+        "100": 100,
+        "200": 200
     }
-    n_rings_key = "0"
     intermediate_dim_dict = {
         "1": 6,
         "2": 12,
@@ -268,7 +275,7 @@ epochs_warmup = 0
 
 feature_space_id = "standard"
 cond_feature_space_id = "type"
-if data_set.startswith("destvi"):
+if data_set.startswith("10xvisium_lymphnode"):
     cond_feature_space_id = "proportions"
 
 use_covar_node_label = True

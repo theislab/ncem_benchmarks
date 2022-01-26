@@ -6,7 +6,7 @@ GS_PATH="${OUT_PATH_BASE}/grid_searches/"
 DATA_PATH="/storage/groups/ml01/workspace/${USER}/ncem/data"
 
 MODEL_CLASS="ED_NCEM"
-DATA_SET="destvi_lymphnode"
+DATA_SET="10xvisium_lymphnode"
 COND_TYPE="GCN"
 OPTIMIZER="ADAM"
 DOMAIN_TYPE="PATIENT"
