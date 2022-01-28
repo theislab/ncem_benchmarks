@@ -324,7 +324,10 @@ elif data_set.startswith("destvi_mousebrain"):
     scale_node_size = False
     output_layer = 'linear'
 elif data_set.startswith("cell2location_lymphnode"):
-    data_path = data_path_base + '/cell2location/'
+    if data_set.endswith('hvg'):
+        data_path = data_path_base + '/cell2location_hvg/'
+    else:
+        data_path = data_path_base + '/cell2location/'
     use_domain = False
     merge_node_types_predefined = False
     covar_selection = []
