@@ -323,6 +323,33 @@ elif data_set.startswith("destvi_mousebrain"):
     log_transform = False
     scale_node_size = False
     output_layer = 'linear'
+elif data_set.startswith("cell2location_lymphnode"):
+    data_path = data_path_base + '/cell2location/'
+    use_domain = False
+    merge_node_types_predefined = False
+    covar_selection = []
+    n_rings_key = radius_key
+    radius_dict = {
+        "0": 0
+    }
+    radius_key = "0"
+    n_rings_dict = {
+        "0": 0,
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 4,
+        "5": 5,
+        "6": 6,
+        "10": 10,
+        "20": 20,
+        "50": 50,
+        "100": 100,
+        "200": 200
+    }
+    log_transform = False
+    scale_node_size = False
+    output_layer = 'linear'
 else:
     raise ValueError('data_origin not recognized')
 
