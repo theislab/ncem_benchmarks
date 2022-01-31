@@ -257,6 +257,51 @@ elif data_set == 'destvi_mousebrain':
     pre_warm_up = 0
     max_beta = 1.
     beta = 0.02
+elif data_set.startswith("cell2location_lymphnode"):
+    if data_set.endswith('hvg'):
+        data_path = data_path_base + '/cell2location_hvg/'
+    else:
+        data_path = data_path_base + '/cell2location/'
+    use_domain = False
+    merge_node_types_predefined = False
+    covar_selection = []
+    n_rings_key = radius_key
+    radius_dict = {
+        "0": 0
+    }
+    radius_key = "0"
+    n_rings_dict = {
+        "0": 0,
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 4,
+        "5": 5,
+        "6": 6,
+        "10": 10,
+        "20": 20,
+        "50": 50,
+        "100": 100,
+        "200": 200
+    }
+    intermediate_dim_dict = {
+        "1": 8,
+        "2": 16,
+        "3": 32,
+        "4": 64,
+        "5": 128,
+    }
+    latent_dim_dict = {
+        "1": 8,
+        "2": 16,
+        "3": 32,
+    }
+    log_transform = False
+    scale_node_size = False
+    output_layer = "gaussian"
+    pre_warm_up = 0
+    max_beta = 1.
+    beta = 0.02
 else:
     raise ValueError('data_origin not recognized')
 
