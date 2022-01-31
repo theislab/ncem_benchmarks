@@ -265,25 +265,18 @@ elif data_set.startswith("cell2location_lymphnode"):
     use_domain = False
     merge_node_types_predefined = False
     covar_selection = []
-    n_rings_key = radius_key
     radius_dict = {
-        "0": 0
-    }
-    radius_key = "0"
-    n_rings_dict = {
         "0": 0,
-        "1": 1,
-        "2": 2,
-        "3": 3,
-        "4": 4,
-        "5": 5,
-        "6": 6,
-        "10": 10,
-        "20": 20,
-        "50": 50,
-        "100": 100,
-        "200": 200
+        "1": 55,
+        "2": 110,
+        "5": 275,
+        "10": 550,
+        "100": 5500
     }
+    n_rings_dict = {
+        "0": 1
+    }
+    n_rings_key = "0"
     intermediate_dim_dict = {
         "1": 8,
         "2": 16,
