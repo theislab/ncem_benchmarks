@@ -371,7 +371,9 @@ epochs_warmup = 0
 feature_space_id = "standard"
 cond_feature_space_id = "type"
 
-use_covar_node_label = False if model_class in ["interactions", "interactions_baseline"] else True
+use_covar_node_label = False if model_class in [
+    "interactions", "interactions_baseline", "deconvolution", "deconvolution_baseline"
+] else True
 use_covar_node_position = False
 use_covar_graph_covar = False
 
