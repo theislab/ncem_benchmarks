@@ -8,7 +8,7 @@ DATA_PATH="/storage/groups/ml01/workspace/${USER}/ncem/data"
 MODEL_CLASS="ED"
 DATA_SET="10xvisium_lymphnode"
 OPTIMIZER="ADAM"
-DOMAIN_TYPE="PATIENT"
+DOMAIN_TYPE="IMAGE"
 LR_KEYS=("1")
 LAT_DIM_KEYS=("2+3")
 DR_KEYS=("1")
@@ -22,7 +22,7 @@ DEC_DEPTH_KEY=("0" "1")
 
 BATCH_SIZE=("S")
 RADIUS_KEYS=("0")
-N_EVAL_KEYS=("100")
+N_EVAL_KEYS=("10")
 USE_TYPE_COND="1"
 
 GS_KEY="$(date '+%y%m%d')_${MODEL_CLASS}_${DOMAIN_TYPE}_${DATA_SET}"

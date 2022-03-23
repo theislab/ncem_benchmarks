@@ -11,7 +11,7 @@ COND_TYPE="GCN"
 OPTIMIZER="ADAM"
 DOMAIN_TYPE="PATIENT"
 LR_KEYS=("1")
-LAT_DIM_KEYS=("1+2+3")
+LAT_DIM_KEYS=("2+3")
 DR_KEYS=("1")
 L1_KEY=("1")
 L2_KEYS=("2")
@@ -27,11 +27,11 @@ COND_DR_KEY=("1")
 COND_L2_KEY=("2")
 
 BATCH_SIZE=("S")
-RADIUS_KEYS=("0" "2" "5" "100")
-N_EVAL_KEYS=("100")
+RADIUS_KEYS=("10" "100")
+N_EVAL_KEYS=("10")
 USE_TYPE_COND="1"
 
-GS_KEY="$(date '+%y%m%d')_${MODEL_CLASS}_${COND_TYPE}_${DOMAIN_TYPE}_${DATA_SET}"
+GS_KEY="$(date '+%y%m%d')c_${MODEL_CLASS}_${COND_TYPE}_${DOMAIN_TYPE}_${DATA_SET}"
 OUT_PATH=${GS_PATH}/${GS_KEY}
 
 # dummy values for this model class have hard-encoded default values in this grid search
